@@ -35,10 +35,10 @@ public class Main {
         String spacesBeforeLettersAboveBoard = spaceFromBoundary + spacesFromNumberingAndStartTabs;
         String spacesBetweenLetters = stringMultiply(space2, 1);
         String spaceBetweenFirstTildeAndBoundary = stringMultiply(space2, 1);
-        String lineAboveBoard = spaceBetweenFirstTildeAndBoundary + spacesBeforeLettersAboveBoard + "A" + spacesBetweenLetters + "B" + spacesBetweenLetters
-                + "C" + spacesBetweenLetters + "D" + spacesBetweenLetters + "E" + spacesBetweenLetters + "F"
-                + spacesBetweenLetters + "G" + spacesBetweenLetters + "H" + spacesBetweenLetters + "I"
-                + spacesBetweenLetters + "J";
+        String lineAboveBoard = spaceBetweenFirstTildeAndBoundary + spacesBeforeLettersAboveBoard + "A"
+                + spacesBetweenLetters + "B" + spacesBetweenLetters + "C" + spacesBetweenLetters + "D"
+                + spacesBetweenLetters + "E" + spacesBetweenLetters + "F" + spacesBetweenLetters + "G"
+                + spacesBetweenLetters + "H" + spacesBetweenLetters + "I" + spacesBetweenLetters + "J";
 
         System.out.println(lineAboveBoard);
         System.out.println(dashesAboveAndBelow);
@@ -81,7 +81,8 @@ public class Main {
 
         System.out.println(lineAboveBoard);
         System.out.println(dashesAboveAndBelow);
-        String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes +dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
+        String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes
+                + dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
         System.out.println(dashesUpAndDown);
 
         // --------------------------------
@@ -97,8 +98,6 @@ public class Main {
         lstWithDots2[2][3] = "O";
         lstWithDots2[3][3] = "O";
         printBoardString(lstWithDots2);
-
-
 
         System.out.println(dashesUpAndDown);
         System.out.println(dashesAboveAndBelow);
@@ -173,10 +172,10 @@ public class Main {
         String spacesBeforeLettersAboveBoard = spaceFromBoundary + spacesFromNumberingAndStartTabs;
         String spacesBetweenLetters = stringMultiply(space, 1);
         String spaceBetweenFirstTildeAndBoundary = stringMultiply(space, 1);
-        String lineAboveBoard = spaceBetweenFirstTildeAndBoundary + spacesBeforeLettersAboveBoard + "A" + spacesBetweenLetters + "B" + spacesBetweenLetters
-                + "C" + spacesBetweenLetters + "D" + spacesBetweenLetters + "E" + spacesBetweenLetters + "F"
-                + spacesBetweenLetters + "G" + spacesBetweenLetters + "H" + spacesBetweenLetters + "I"
-                + spacesBetweenLetters + "J";
+        String lineAboveBoard = spaceBetweenFirstTildeAndBoundary + spacesBeforeLettersAboveBoard + "A"
+                + spacesBetweenLetters + "B" + spacesBetweenLetters + "C" + spacesBetweenLetters + "D"
+                + spacesBetweenLetters + "E" + spacesBetweenLetters + "F" + spacesBetweenLetters + "G"
+                + spacesBetweenLetters + "H" + spacesBetweenLetters + "I" + spacesBetweenLetters + "J";
 
         System.out.println(lineAboveBoard);
     }
@@ -191,7 +190,47 @@ public class Main {
         String dashesFromSpaces = stringMultiply(dashString, (lst.length - 1));
         String dashesFromArrayBoundaries = stringMultiply(dashString, 2);
         String dashesFromNumberOfElementsOfArray = stringMultiply(dashString, lstOneLine.length);
-        String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes +dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
+        String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes
+                + dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
         System.out.println(dashesUpAndDown);
+    }
+
+    public static int convertLetterCoordinateToInt(String letter) {
+        // remember to upperCase convert!
+        int coordinateX = 0;
+
+        switch (letter) {
+        case "A":
+            coordinateX = 0;
+            break;
+        case "B":
+            coordinateX = 1;
+            break;
+        case "C":
+            coordinateX = 2;
+            break;
+        case "D":
+            coordinateX = 3;
+            break;
+        case "E":
+            coordinateX = 4;
+            break;
+        case "F":
+            coordinateX = 5;
+            break;
+        case "G":
+            coordinateX = 6;
+            break;
+        case "H":
+            coordinateX = 7;
+            break;
+        case "I":
+            coordinateX = 8;
+            break;
+        case "J":
+            coordinateX = 9;
+            break;
+        }
+        return coordinateX;
     }
 }
