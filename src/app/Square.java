@@ -1,19 +1,28 @@
 package app;
 
 public class Square {
-    public String look = "~";
-    // public String hitLook = "X";
+    private String look = "~";
+    private String label = "water";
 
-    public Square() {
-        this.look = look;
-        // this.hitLook = hitLook;
+
+        public Square() {
+            this.look = look;
     }
 
     public String getLook() {
         return look;
     }
 
-    public void hitLook() {
-        this.look = "X";
+    public String placeShip() {
+        return look = "O";
+    }
+
+    public String hitSquare(Square square) {
+        if (look.equals("O")) {
+            look = "#";
+        } else {
+            look = "X";
+        }
+        return look;
     }
 }

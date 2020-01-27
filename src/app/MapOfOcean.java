@@ -34,7 +34,7 @@ public class MapOfOcean {
             System.out.print(" ");
 
             for (Square elementOfRow : rowArray) {
-                System.out.print(elementOfRow.look + " ");
+                System.out.print(elementOfRow.getLook() + " ");
             }
             counter += 1;
             System.out.print("|");
