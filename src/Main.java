@@ -4,6 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
         Board board = new Board();
-        board.getPlayerBoard("1");
+        board.getBoard("1");
+
     }
 }

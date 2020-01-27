@@ -5,22 +5,32 @@ import java.util.Map;
 
 public class Board {
 
-    Map<String, PlayerBoard> board;
+    Map<String, PlayerBoard> boards;
 
     public Board () {
-        board = new HashMap<>();
-        board.put("1", new PlayerBoard());
-        board.put("2", new PlayerBoard());
-        board.put("1guess", new PlayerBoard());
-        board.put("2guess", new PlayerBoard());
+        boards = new HashMap<>();
+        boards.put("1", new PlayerBoard());
+        boards.put("2", new PlayerBoard());
+        boards.put("1guess", new PlayerBoard());
+        boards.put("2guess", new PlayerBoard());
     }
 
-    public Map<String, PlayerBoard> getBoard () {
-        return board;
+    public Map<String, PlayerBoard> getBoards () {
+        return boards;
     }
 
-    public PlayerBoard getPlayerBoard (String key) {
-        return board.get(key);
+    public PlayerBoard getBoard (String key) {
+        return boards.get(key);
+    }
+
+
+    public Board fillOcean () {
+        for (String key : getBoards().keySet()) {
+            for (int i = 1; i <= getBoard(key).getPlayerBoard().length; i++) {
+
+            }
+        }
+
     }
 
 

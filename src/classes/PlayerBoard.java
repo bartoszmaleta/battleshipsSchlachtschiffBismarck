@@ -1,13 +1,15 @@
 package classes;
 
-import java.util.List;
-
 public class PlayerBoard {
 
-    List[] playerBoard;
+    Field[] playerBoard;
 
     public PlayerBoard() {
-        playerBoard = new List[10];
+        playerBoard = new Field[10];
+    }
+
+    public Field[] getPlayerBoard () {
+        return playerBoard;
     }
 
 }
