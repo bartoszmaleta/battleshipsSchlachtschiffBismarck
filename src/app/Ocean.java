@@ -18,6 +18,11 @@ public class Ocean {
         }
     }
 
+    // RETURN LOOK OF SQUARE IN GIVEN COORDINATES
+    public String getOneSquareFromGivenCoordinatesAsInt(int x, int y) {
+        return ocean[y][x].getLook();
+    }
+
     // GETTER FOR OCEAN
     public Square[][] getOcean() {
         return ocean;
