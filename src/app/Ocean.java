@@ -23,6 +23,10 @@ public class Ocean {
         return ocean[y][x].getLook();
     }
 
+    public void hitOneSquare(int x, int y) {
+        ocean[y][x].hit();
+    }
+
     // GETTER FOR OCEAN
     public Square[][] getOcean() {
         return ocean;

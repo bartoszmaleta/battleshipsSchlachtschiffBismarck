@@ -25,4 +25,12 @@ public class Square {
         }
         return look;
     }
+    
+    public void hit() {
+        this.look = "X";
+    }
+
+    public void miss() {
+        look = "O";
+    }
 }
