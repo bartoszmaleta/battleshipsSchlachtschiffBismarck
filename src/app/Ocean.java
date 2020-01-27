@@ -23,7 +23,53 @@ public class Ocean {
         return ocean;
     }
 
-    // PRINTING
+    // CONVERTING INPUT TO COORDINATES
+    Square getLocationFromCoordinatesInputtedAsString(String coordinates) {
+        int x, y;
+        y = Integer.parseInt(coordinates.substring(1));
+        switch (coordinates.substring(0, 1)) {
+        case "A":
+            x = 0;
+            break;
+        case "B":
+            x = 1;
+            break;
+        case "C":
+            x = 2;
+            break;
+        case "D":
+            x = 3;
+            break;
+        case "E":
+            x = 4;
+            break;
+        case "F":
+            x = 5;
+            break;
+        case "G":
+            x = 6;
+            break;
+        case "H":
+            x = 7;
+            break;
+        case "I":
+            x = 8;
+            break;
+        case "J":
+            x = 9;
+            break;
+        default:
+            System.out.println("Wrong input");
+            x = -1;
+        }
+        return ocean[y][x];
+    }
+
+    Square getLocationFromCoordinatesAsInts(int x, int y) {
+        return ocean[y][x];
+    }
+
+    // PRINTING BOARD
     public void printBoardString() {
         int counter = 1;
         String space = " ";
@@ -52,6 +98,7 @@ public class Ocean {
         printDashesBelowBoard();
     }
 
+    // MULTIPLIER FOR STRINGS
     public static String stringMultiply(String s, int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
@@ -60,6 +107,7 @@ public class Ocean {
         return sb.toString();
     }
 
+    // PRINT LINE WITH LETTERS FOR ROWS
     public void printLineWithLetters() {
         String space = " ";
         String spaceFromBoundary = " ";
@@ -75,6 +123,7 @@ public class Ocean {
         System.out.println(lineAboveBoard);
     }
 
+    // PRINT DASHES BELOW BOARD (DECORATE BOARD)
     public void printDashesBelowBoard() {
 
         String space = " ";
@@ -88,7 +137,5 @@ public class Ocean {
                 + dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
         System.out.println(dashesUpAndDown);
     }
-
-    // TESTING PRINT OF OCEAN IN MAIN
 
 }
