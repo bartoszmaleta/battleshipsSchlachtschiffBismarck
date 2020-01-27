@@ -2,28 +2,21 @@ package app;
 
 import java.util.Arrays;
 
-public class Ocean {
-    // INITIALIZATION OF INSTANCE OF SQUARE
-    Square square = new Square();
+public class MapOfOcean {
+    static Square[][] mapOfSquare = new Square[10][10];
+    public MapOfOcean() {
 
-    // DECLARATION OF BOARD AND INITIALIZATION
-    private Square[][] ocean = new Square[10][10];
-
-    // GETTER FOR OCEAN
-    public Square[][] getOcean() {
-        return ocean;
     }
 
-    // FILLING
-    public void fillOceanWithSquares() {
-        for (Square[] oneLine : ocean) {
+    public void fillArrayMulti() {
+        for (Square[] oneLine : mapOfSquare) {
             Square instance = new Square();
             Arrays.fill(oneLine, instance);
         }
     }
 
-    // PRINTING
-    public void printBoardString() {
+// TESTING PRINTS OF OCEAN
+    public static void printBoardString() {
         int counter = 1;
         String space = " ";
         String twoSpaces = stringMultiply(space, 2);
@@ -31,7 +24,7 @@ public class Ocean {
 
         printLineWithLetters();
 
-        for (Square[] rowArray : ocean) {
+        for (Square[] rowArray : mapOfSquare) {
             if (counter < 10) {
                 System.out.print("(" + counter + ")" + threeSpaces + "|");
             } else {
@@ -59,7 +52,7 @@ public class Ocean {
         return sb.toString();
     }
 
-    public void printLineWithLetters() {
+    public static void printLineWithLetters() {
         String space = " ";
         String spaceFromBoundary = " ";
         String spacesFromNumberingAndStartTabs = stringMultiply(space, 6);
@@ -74,15 +67,15 @@ public class Ocean {
         System.out.println(lineAboveBoard);
     }
 
-    public void printDashesBelowBoard() {
+    public static void printDashesBelowBoard() {
 
         String space = " ";
         String dashString = "-";
         String spacesFromNumberingAndStartTabs = stringMultiply(space, 6);
         String dashesFromSpacesBetweeenBoundariesAndTildes = stringMultiply(dashString, 2);
-        String dashesFromSpaces = stringMultiply(dashString, (ocean.length - 1));
+        String dashesFromSpaces = stringMultiply(dashString, (mapOfSquare.length - 1));
         String dashesFromArrayBoundaries = stringMultiply(dashString, 2);
-        String dashesFromNumberOfElementsOfArray = stringMultiply(dashString, ocean[0].length);
+        String dashesFromNumberOfElementsOfArray = stringMultiply(dashString, mapOfSquare[0].length);
         String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes
                 + dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
         System.out.println(dashesUpAndDown);
