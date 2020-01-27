@@ -1,6 +1,6 @@
 package app;
 
-public class Ship {
+public abstract class Ship {
     // private?
 
     private Coordinate coordinate;

@@ -93,6 +93,7 @@ public class Main {
         printDashesBelowBoard(lst);
         // --------------------------------
 
+        printLineWithLetters();
         lstWithDots2[0][3] = "O";
         lstWithDots2[1][3] = "O";
         lstWithDots2[2][3] = "O";
@@ -101,6 +102,9 @@ public class Main {
 
         System.out.println(dashesUpAndDown);
         System.out.println(dashesAboveAndBelow);
+
+        Square square = new Square();
+        System.out.println(square.signOfSquare);
 
     }
 
