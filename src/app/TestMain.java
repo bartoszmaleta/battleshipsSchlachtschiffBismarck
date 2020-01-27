@@ -6,7 +6,6 @@ public class TestMain {
 
     public static void main(String[] args) {
         Ocean ocean = new Ocean();
-        ocean.fillOceanWithSquares();
         ocean.printBoardString();
 
     }

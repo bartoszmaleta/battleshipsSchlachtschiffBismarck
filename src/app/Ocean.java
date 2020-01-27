@@ -6,20 +6,21 @@ public class Ocean {
     // INITIALIZATION OF INSTANCE OF SQUARE
     Square square = new Square();
 
-    // DECLARATION OF BOARD AND INITIALIZATION
-    private Square[][] ocean = new Square[10][10];
+    // DECLARATION OF BOARD
+    // private Square[][] ocean = new Square[10][10];
+    private Square[][] ocean;
 
-    // GETTER FOR OCEAN
-    public Square[][] getOcean() {
-        return ocean;
-    }
-
-    // FILLING
-    public void fillOceanWithSquares() {
+    public Ocean() {
+        ocean = new Square[10][10];
         for (Square[] oneLine : ocean) {
             Square instance = new Square();
             Arrays.fill(oneLine, instance);
         }
+    }
+
+    // GETTER FOR OCEAN
+    public Square[][] getOcean() {
+        return ocean;
     }
 
     // PRINTING
