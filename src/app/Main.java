@@ -103,8 +103,8 @@ public class Main {
         System.out.println(dashesUpAndDown);
         System.out.println(dashesAboveAndBelow);
 
-        Square square = new Square();
-        System.out.println(square.signOfSquare);
+        // Square square = new Square();
+        // System.out.println(square.look);
 
     }
 

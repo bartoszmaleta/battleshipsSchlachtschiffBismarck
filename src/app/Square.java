@@ -1,5 +1,13 @@
 package app;
 
 public class Square {
-    public String signOfSquare = "*";
+    public String look = "~";
+    
+    public Square() {
+        this.look = look;
+    }
+
+    public String getLook() {
+        return look;
+    }
 }
