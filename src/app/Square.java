@@ -2,11 +2,10 @@ package app;
 
 public class Square {
 
-    private String look = "~";
-    private String label = "water";
+    protected String look = "~";
+    protected String label = "water";
 
     public Square () {
-        this.label = setLabel();
     }
 
     public String getLook() {
