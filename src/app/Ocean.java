@@ -12,10 +12,12 @@ public class Ocean {
 
     public Ocean() {
         ocean = new Square[10][10];
-        for (Square[] oneLine : ocean) {
-            Square instance = new Square();
-            Arrays.fill(oneLine, instance);
-        }
+        fillOcean();
+    }
+
+    // GETTER FOR OCEAN
+    public Square[][] getOcean() {
+        return ocean;
     }
 
     // RETURN LOOK OF SQUARE IN GIVEN COORDINATES
@@ -23,13 +25,35 @@ public class Ocean {
         return ocean[y][x].getLook();
     }
 
-    public void hitOneSquare(int x, int y) {
-        ocean[y][x].hit();
+    // FILLING OCEAN WITH SQUARES
+    public Square[][] fillOcean() {
+        for (Square[] line : ocean) {
+            for (int i = 0; i < 10; i++) {
+                line[i] = new Square();
+            }
+        }
+        return ocean;
     }
 
-    // GETTER FOR OCEAN
-    public Square[][] getOcean() {
-        return ocean;
+    // PLACING SHIP ON OCEAN
+    public void placeShip(Ship ship) {
+        int x = ship.getInitialPosX();
+        int y = ship.getInitialPosY();
+        for (int i = 0; i < ship.getSize(); i++) {
+            ocean[y][x + 1] = ship.shipSquares[i];
+        }
+    }
+
+    // RAW VERSION OF PRINTING
+    public void printOcean() {
+        String printedLine = "";
+        for (Square[] line : ocean) {
+            for (int i = 0; i < line.length; i++) {
+                printedLine += line[i].getLook() + "  ";
+            }
+            System.out.println(printedLine);
+            printedLine = "";
+        }
     }
 
     // CONVERTING INPUT TO COORDINATES
@@ -85,6 +109,7 @@ public class Ocean {
         String twoSpaces = stringMultiply(space, 2);
         String threeSpaces = stringMultiply(space, 3);
 
+        System.out.println();
         printLineWithLetters();
 
         for (Square[] rowArray : ocean) {
@@ -105,6 +130,8 @@ public class Ocean {
         }
 
         printDashesBelowBoard();
+        System.out.println();
+
     }
 
     // MULTIPLIER FOR STRINGS

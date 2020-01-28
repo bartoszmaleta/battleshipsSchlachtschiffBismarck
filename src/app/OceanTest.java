@@ -2,52 +2,97 @@
 
 // import java.util.Arrays;
 
-// public class MapOfOcean {
-//     private Square[][] mapOfOcean;
+// public class OceanTest {
+//     // INITIALIZATION OF INSTANCE OF SQUARE
+//     Square square = new Square();
 
-//     public MapOfOcean() {
-//         this.mapOfOcean = new Square[10][10];
-//         // ocean = new Square[10][10];
+//     // DECLARATION OF BOARD
+//     // private Square[][] ocean = new Square[10][10];
+//     private Square[][] ocean;
 
-//         for (int i = 0; i < 10; i++) {
-//             for (int j = 0; j < 10; j++) {
-//                 this.mapOfOcean[j][i] = new Square(i, j);
+//     public OceanTest() {
+//         ocean = new Square[10][10];
+//         for (Square[] oneLine : ocean) {
+//             Square instance = new Square();
+//             Arrays.fill(oneLine, instance);
+//         }
+//     }
+
+//     // RETURN LOOK OF SQUARE IN GIVEN COORDINATES
+//     public String getOneSquareFromGivenCoordinatesAsInt(int x, int y) {
+//         return ocean[y][x].getLook();
+//     }
+
+
+//     public void fillOceanWithSquares() {
+//         for (Square[] row : ocean) {
+//             for (Square square : row) {
+//                 square = new Square();
 //             }
 //         }
 //     }
 
-//     public Square getSquare(int x, int y) {
-//         // return mapOfOcean[y][x];
-//         return mapOfOcean[x][y];
-//     }
-
-//     public void placeShipHorizontally(Ship ship) {
-//         int x = ship.getXofShip();
+//     public void placeShip(Ship ship) {
+//         int x = ship.getInitialPosX();
+//         int y = ship.getInitialPosY();
 //         for (int i = 0; i < ship.getSize(); i++) {
-
+//             ocean[y][x + 1] = ship.shipSquares[i];
 //         }
+        
 //     }
 
-//     // public boolean checkPlaceOnBoardHorizontally(Ship ship) {
-//         // int postionXofShip = ship.getXofShip() - 1;
-//         // int postionYofShip = ship.getYofShip() - 1;
-//         // if (ship.getSize() + postionXofShip + 2 <= 
-//     // }
+//     // GETTER FOR OCEAN
+//     public Square[][] getOcean() {
+//         return ocean;
+//     }
 
+//     // CONVERTING INPUT TO COORDINATES
+//     Square getLocationFromCoordinatesInputtedAsString(String coordinates) {
+//         int x, y;
+//         y = Integer.parseInt(coordinates.substring(1));
+//         switch (coordinates.substring(0, 1)) {
+//         case "A":
+//             x = 0;
+//             break;
+//         case "B":
+//             x = 1;
+//             break;
+//         case "C":
+//             x = 2;
+//             break;
+//         case "D":
+//             x = 3;
+//             break;
+//         case "E":
+//             x = 4;
+//             break;
+//         case "F":
+//             x = 5;
+//             break;
+//         case "G":
+//             x = 6;
+//             break;
+//         case "H":
+//             x = 7;
+//             break;
+//         case "I":
+//             x = 8;
+//             break;
+//         case "J":
+//             x = 9;
+//             break;
+//         default:
+//             System.out.println("Wrong input");
+//             x = -1;
+//         }
+//         return ocean[y][x];
+//     }
 
-//     // public void markAsHit(int y, int x) {
-//         // Square location = mapOfOcean[y][x];
-//         // location = getSquare(x, y).markAsShip();
-//     // }
-
-
-
+//     Square getLocationFromCoordinatesAsInts(int x, int y) {
+//         return ocean[y][x];
+//     }
 
 //     // PRINTING BOARD
-//     // public String getGamerBoard() {
-// // 
-//     // }
-
 //     public void printBoardString() {
 //         int counter = 1;
 //         String space = " ";
@@ -56,7 +101,7 @@
 
 //         printLineWithLetters();
 
-//         for (Square[] rowArray : mapOfOcean) {
+//         for (Square[] rowArray : ocean) {
 //             if (counter < 10) {
 //                 System.out.print("(" + counter + ")" + threeSpaces + "|");
 //             } else {
@@ -66,7 +111,7 @@
 //             System.out.print(" ");
 
 //             for (Square elementOfRow : rowArray) {
-//                 System.out.print(elementOfRow.getGamerSquare() + " ");
+//                 System.out.print(elementOfRow.getLook() + " ");
 //             }
 //             counter += 1;
 //             System.out.print("|");
@@ -108,12 +153,12 @@
 //         String dashString = "-";
 //         String spacesFromNumberingAndStartTabs = stringMultiply(space, 6);
 //         String dashesFromSpacesBetweeenBoundariesAndTildes = stringMultiply(dashString, 2);
-//         String dashesFromSpaces = stringMultiply(dashString, (mapOfOcean.length - 1));
+//         String dashesFromSpaces = stringMultiply(dashString, (ocean.length - 1));
 //         String dashesFromArrayBoundaries = stringMultiply(dashString, 2);
-//         String dashesFromNumberOfElementsOfArray = stringMultiply(dashString, mapOfOcean[0].length);
+//         String dashesFromNumberOfElementsOfArray = stringMultiply(dashString, ocean[0].length);
 //         String dashesUpAndDown = spacesFromNumberingAndStartTabs + dashesFromSpacesBetweeenBoundariesAndTildes
 //                 + dashesFromSpaces + dashesFromArrayBoundaries + dashesFromNumberOfElementsOfArray;
 //         System.out.println(dashesUpAndDown);
 //     }
 
-// }
+// }    
