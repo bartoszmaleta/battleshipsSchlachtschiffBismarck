@@ -52,6 +52,12 @@ public class Ocean {
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
+                    // CREATING BARRIER
+                    ocean[y + i][x].setIsOccupied();    // PLACE OF SHIP
+                    ocean[y + i + 1][x].setIsOccupied();    // X, Y + 1
+                    ocean[y + i - 1][x].setIsOccupied();    // X, Y - 1
+                    ocean[y + i][x + 1].setIsOccupied();    // X + 1, Y
+                    ocean[y + i][x - 1].setIsOccupied();    // X - 1, Y
                 }
             } else {
                 System.out.println(message);
