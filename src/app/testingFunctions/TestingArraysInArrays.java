@@ -1,8 +1,8 @@
-package app;
+package app.testingFunctions;
 
 import java.util.Arrays;
 
-public class Main {
+public class TestingArraysInArrays {
     public static void main(String[] args) {
         String dashString = "-";
 
