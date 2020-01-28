@@ -2,18 +2,20 @@ package app;
 public class Ship {
 
     int size;
+    Square[] shipSquares;
     String shipLook;
     int initialPosX;
     int initialPosY;
-    Square[] shipSquares;
+    boolean isVertical;
 
-    public Ship(int size, String shipLook, int initialPosX, int initialPosY) {
+    public Ship(int size, String shipLook, int initialPosX, int initialPosY, boolean isVertical) {
         this.size = size;
         this.shipSquares = new Square[size];
+        fillShipSquares();
         this.shipLook = shipLook;
         this.initialPosX = initialPosX;
         this.initialPosY = initialPosY;
-        fillShipSquares();
+        this.isVertical = isVertical;
     }
 
 
@@ -31,6 +33,10 @@ public class Ship {
 
     public int getSize() {
         return size;
+    }
+
+    public boolean getIsVertical() {
+        return isVertical;
     }
 
     public void fillShipSquares() {
