@@ -21,7 +21,7 @@ public class TestMain {
         ships.add(destroyer);
         for (Ship ship : ships) {
             //zapytanie
-            ocean.placeShip(ship, false);
+            ocean.placeShip(ship, true);
         }
         ocean.printBoardString();
         System.out.println(ocean.getOcean()[0][6].getLook());

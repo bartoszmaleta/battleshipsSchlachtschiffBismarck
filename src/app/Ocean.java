@@ -40,6 +40,15 @@ public class Ocean {
         String message = "Not enough space. Recalculate.";
         int x = ship.getInitialPosX();
         int y = ship.getInitialPosY();
+        for (int i = 0; i < ship.size; i++) {
+            if (ocean[y + i][x].getLook() != "~") {
+                System.out.println(message);
+                return;
+            } else if (ocean[y][x + i].getLook() != "~") {
+                System.out.println(message);
+                return;
+            }
+        }
         if (isVertical) {
             if (y + ship.size <= 10) {
                 for (int i = 0; i < ship.getSize(); i++) {
