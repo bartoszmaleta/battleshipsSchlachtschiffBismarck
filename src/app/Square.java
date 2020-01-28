@@ -5,6 +5,7 @@ public class Square {
     String look = "~";
     boolean isHit = false;
     boolean isShip = false;
+    boolean isOccupied = false;
 
     public Square() {
     }
@@ -19,6 +20,14 @@ public class Square {
 
     public boolean getIsShip() {
         return isShip;
+    }
+
+    public boolean getIsOccupied() {
+        return isOccupied;
+    }
+
+    public void setIsOccupied() {
+        this.isOccupied = true;
     }
 
     public void setLook() {
