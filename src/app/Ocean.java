@@ -44,7 +44,7 @@ public class Ocean {
 //            return;
 //        }
         placeBarrier(ship, isVertical);
-        if (checkIfBarrier(ship, x, y)) {
+        if (checkIfBarrier(ship)) {
             return;
         }
         if (isVertical) {
@@ -88,35 +88,45 @@ public class Ocean {
         if (isVertical) {
             for (y = x - 1; y <= y + 1; y++) {
                 for (x = y - 1; x <= x + ship.getSize() + 1; x++) {
-                    ocean[y][x].isOccupied = true;
+                    if (y >= 0 && y < 10 && x >= 0 && x < 10) {
+                        ocean[y][x].isOccupied = true;
+                    }
                 }
             }
         } else {
             for (y = y - 1; y <= y + 1; y++) {
                 for (x = x - 1; x <= x + ship.getSize() + 1; x++) {
-                    ocean[y][x].isOccupied = true;
+                    if (y >= 0 && y < 10 && x >= 0 && x < 10) {
+                        ocean[x][y].isOccupied = true;
+                    }
                 }
             }
         }
     }
 
-    public boolean checkIfBarrier(Ship ship, int x, int y) {
+    public boolean checkIfBarrier(Ship ship) {
+        int x = ship.getInitialPosX();
+        int y = ship.getInitialPosY();
         String message = "Barrier in a way.";
         if (ship.isVertical) {
-            for (int i = y - 1; y <= y + 1; y++) {
-                for (int j = x - 1; x <= x + ship.size + 1; j++) {
-                    if (ocean[j][i].isOccupied = true) {
-                        System.out.println(message);
-                        return true;
+            for (int i = y - 1; i <= y + 1; i++) {
+                for (int j = x - 1; j <= x + ship.size + 1; j++) {
+                    if (i >= 0 && i < 10 && j >= 0 && j < 10) {
+                        if (ocean[j][i].isOccupied = true) {
+                            System.out.println(message);
+                            return true;
+                        }
                     }
                 }
             }
         } else {
-            for (int i = y - 1; y <= y + 1; y++) {
-                for (int j = x - 1; x <= x + ship.size + 1; j++) {
-                    if (ocean[i][j].isOccupied = true) {
-                        System.out.println(message);
-                        return true;
+            for (int i = y - 1; i <= y + 1; i++) {
+                for (int j = x - 1; j <= x + ship.size + 1; j++) {
+                    if (i >= 0 && i < 10 && j >= 0 && j < 10) {
+                        if (ocean[i][j].isOccupied = true) {
+                            System.out.println(message);
+                            return true;
+                        }
                     }
                 }
             }
