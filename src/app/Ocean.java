@@ -36,11 +36,28 @@ public class Ocean {
     }
 
     // PLACING SHIP ON OCEAN
-    public void placeShip(Ship ship) {
+    public void placeShip(Ship ship, boolean isVertical) {
+        String message = "Not enough space. Recalculate.";
         int x = ship.getInitialPosX();
         int y = ship.getInitialPosY();
-        for (int i = 0; i < ship.getSize(); i++) {
-            ocean[y][x + 1] = ship.shipSquares[i];
+        if (isVertical) {
+            if (y + ship.size <= 10) {
+                for (int i = 0; i < ship.getSize(); i++) {
+                    ocean[y + i][x] = ship.shipSquares[i];
+                    ocean[y + i][x].setIsShip();
+                }
+            } else {
+                System.out.println(message);
+            }
+        } else {
+            if (x + ship.size <= 10) {
+                for (int i = 0; i < ship.getSize(); i++) {
+                    ocean[y][x + i] = ship.shipSquares[i];
+                    ocean[y][x + i].setIsShip();
+                }
+            } else {
+                System.out.println(message);
+            }
         }
     }
 
@@ -61,39 +78,39 @@ public class Ocean {
         int x, y;
         y = Integer.parseInt(coordinates.substring(1));
         switch (coordinates.substring(0, 1)) {
-        case "A":
-            x = 0;
-            break;
-        case "B":
-            x = 1;
-            break;
-        case "C":
-            x = 2;
-            break;
-        case "D":
-            x = 3;
-            break;
-        case "E":
-            x = 4;
-            break;
-        case "F":
-            x = 5;
-            break;
-        case "G":
-            x = 6;
-            break;
-        case "H":
-            x = 7;
-            break;
-        case "I":
-            x = 8;
-            break;
-        case "J":
-            x = 9;
-            break;
-        default:
-            System.out.println("Wrong input");
-            x = -1;
+            case "A":
+                x = 0;
+                break;
+            case "B":
+                x = 1;
+                break;
+            case "C":
+                x = 2;
+                break;
+            case "D":
+                x = 3;
+                break;
+            case "E":
+                x = 4;
+                break;
+            case "F":
+                x = 5;
+                break;
+            case "G":
+                x = 6;
+                break;
+            case "H":
+                x = 7;
+                break;
+            case "I":
+                x = 8;
+                break;
+            case "J":
+                x = 9;
+                break;
+            default:
+                System.out.println("Wrong input");
+                x = -1;
         }
         return ocean[y][x];
     }
