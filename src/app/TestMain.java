@@ -8,8 +8,8 @@ public class TestMain {
 
         Ocean ocean = new Ocean();
         // ocean.fillOcean();
-        Ship cruiser = new Ship(4, "C", 0,0);
-        Ship battleship = new Ship(5, "B",4,4);
+        Ship cruiser = new Ship(4, "C", 0,0, false);
+        Ship battleship = new Ship(5, "B",4,4, false);
         ocean.placeShip(cruiser);
         ocean.placeShip(battleship);
         ocean.printBoardString();
