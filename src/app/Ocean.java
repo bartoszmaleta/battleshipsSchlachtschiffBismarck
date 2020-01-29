@@ -43,13 +43,17 @@ public class Ocean {
 //        if (checkIfSquaresHaveShip(ship, x, y)) {
 //            return;
 //        }
-        placeBarrier(ship, isVertical);
-        if (checkIfBarrier(ship)) {
-            return;
-        }
+        // placeBarrier(ship, isVertical);
+        // if (checkIfBarrier(ship)) {
+        //     return;
+        // }
         if (isVertical) {
             if (y + ship.size <= 10) {
                 for (int i = 0; i < ship.getSize(); i++) {
+                    // if (ocean[y + i][x].isOccupied) {
+                    //     System.out.println("This square is occupied");
+                    //     return;
+                    // }
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
                     // CREATING BARRIER
@@ -71,6 +75,19 @@ public class Ocean {
             } else {
                 System.out.println(message);
             }
+        }
+    }
+
+    public void attackSquare(int x, int y) {
+        // PLAYER MISSES
+        if (!ocean[y][x].isShip) {
+            ocean[y][x].setMissLook();
+            System.out.println("You missed");
+        // PLAYER HITS
+        } else {
+            ocean[y][x].setIsHit();
+            ocean[y][x].setHitLook();
+            System.out.println("You hit a ship");
         }
     }
 
