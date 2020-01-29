@@ -1,13 +1,10 @@
 package app;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Ocean {
-    // INITIALIZATION OF INSTANCE OF SQUARE
-    Square square = new Square();
 
     // DECLARATION OF BOARD
-    // private Square[][] ocean = new Square[10][10];
     private Square[][] ocean;
 
     public Ocean() {
@@ -145,10 +142,21 @@ public class Ocean {
             printedLine = "";
         }
     }
+    public void move() {
+        System.out.println("Choose square");
+        Scanner userInput = new Scanner(System.in);
+        String coords = userInput.nextLine();
+        Square square = getLocationFromCoordinatesInputtedAsString(coords);
+        hit(square);
+    }
+
+    public void hit(Square square) {
+        square.setIsHit();
+   }
 
     // CONVERTING INPUT TO COORDINATES
     Square getLocationFromCoordinatesInputtedAsString(String coordinates) {
-        int x, y;
+        int x = 0, y;
         y = Integer.parseInt(coordinates.substring(1));
         switch (coordinates.substring(0, 1)) {
             case "A":
@@ -183,9 +191,8 @@ public class Ocean {
                 break;
             default:
                 System.out.println("Wrong input");
-                x = -1;
         }
-        return ocean[y][x];
+        return ocean[y-1][x];
     }
 
     Square getLocationFromCoordinatesAsInts(int x, int y) {

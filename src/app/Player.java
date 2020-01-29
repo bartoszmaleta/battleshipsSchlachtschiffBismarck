@@ -1,7 +1,11 @@
 package app;
 
+import static app.testingFunctions.BattleStatic.ocean;
+
 public class Player {
-    private String name;
+
+    String name;
+    int move = 0;
 
     public Player() {
 
@@ -14,4 +18,5 @@ public class Player {
     public String getName() {
         return name;
     }
+
 }
