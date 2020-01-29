@@ -37,6 +37,5 @@ public class TestMain {
         System.out.println(ocean.getOcean()[2][2].getIsOccupied());
         // System.out.println(ocean.getOcean()[2][2].isOccupied());
 
-
     }
 }
