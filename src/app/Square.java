@@ -40,11 +40,19 @@ public class Square {
 
     public void setIsHit() {
         this.isHit = true;
-        setLook();
+        // setLook();
     }
 
     public void setIsShip() {
         this.isShip = true;
+    }
+
+    public void setMissLook() {
+        this.look = "X";
+    }
+
+    public void setHitLook() {
+        this.look = "O";
     }
 
 }
