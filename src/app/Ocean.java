@@ -7,7 +7,6 @@ public class Ocean {
     Square square = new Square();
 
     // DECLARATION OF BOARD
-    // private Square[][] ocean = new Square[10][10];
     private Square[][] ocean;
 
     public Ocean() {
@@ -57,11 +56,11 @@ public class Ocean {
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
                     // CREATING BARRIER
-                    ocean[y + i][x].setIsOccupied();    // PLACE OF SHIP
-                    ocean[y + i + 1][x].setIsOccupied();    // X, Y + 1
-                    ocean[y + i - 1][x].setIsOccupied();    // X, Y - 1
-                    ocean[y + i][x + 1].setIsOccupied();    // X + 1, Y
-                    ocean[y + i][x - 1].setIsOccupied();    // X - 1, Y
+                    // ocean[y + i][x].setIsOccupied();    // PLACE OF SHIP
+                    // ocean[y + i + 1][x].setIsOccupied();    // X, Y + 1
+                    // ocean[y + i - 1][x].setIsOccupied();    // X, Y - 1
+                    // ocean[y + i][x + 1].setIsOccupied();    // X + 1, Y
+                    // ocean[y + i][x - 1].setIsOccupied();    // X - 1, Y
                 }
             } else {
                 System.out.println(message);

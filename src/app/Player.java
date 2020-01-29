@@ -43,5 +43,17 @@ public class Player {
         this.hasLost = hasLost;
     }
 
+    public void attackSquare(int x, int y, Ocean opponentOcean) {
+        // PLAYER MISSES
+        if (!opponentOcean.getOcean()[y][x].isShip) {
+            opponentOcean.getOcean()[y][x].setMissLook();
+            System.out.println("You missed");
+        // PLAYER HITS
+        } else {
+            opponentOcean.getOcean()[y][x].setIsHit();
+            opponentOcean.getOcean()[y][x].setHitLook();
+            System.out.println("You hit a ship");
+        }
+    }
 
 }
