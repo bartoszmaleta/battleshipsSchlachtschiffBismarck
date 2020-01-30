@@ -1,10 +1,11 @@
 package app;
 
 public class Player {
-    private String name;
+
+    String name;
+    int move = 0;
 
     public Player() {
-
     }
 
     public Player(String name) {
@@ -14,4 +15,5 @@ public class Player {
     public String getName() {
         return name;
     }
+
 }
