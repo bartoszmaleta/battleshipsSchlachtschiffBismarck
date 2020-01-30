@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+// TODO: 
+    // - PvAI                      WIP
+    // - Graphics                  WIP
+    // - Difficulty                ???
+    // - Statistics                ???
+
 public class Game {
     Helpers helpers = new Helpers(); // has method clearScreen()
     Player player1;
@@ -26,74 +32,74 @@ public class Game {
     }
 
     private void gamePvP() {
-        System.out.println("I am in gamePVP");
-
-        // GETTING NAME FOR PLAYERS FROM INPUTS
-        System.out.println("What is the player ONE name = ");
-        String nameOfPlayer1 = getPlayerNameFromInput(player1);
-        System.out.println("");
-        System.out.println("What is the player TWO name = ");
-        String nameOfPlayer2 = getPlayerNameFromInput(player2);
+        // SETTING NAME FOR PLAYERS FROM INPUTS
+        settingPlayersName();
 
         // ROUND PVP GAME
-        // PLAYER 1 OCEAN
+        // // PRINTING PLAYER 2 OCEAN BEFORE PLACING
         Ocean player1Ocean = player1.getPlayerOcean();
         System.out.println("player1 ocean before placing ships: ");
         player1Ocean.printBoardString();
 
-        // PLACING SHIPS
+        // PRINTING PLAYER 2 OCEAN BEFORE PLACING
         placePlayerShipOnBoardAndAddToListOfShips(player1);
         System.out.println("player1 ocean: ");
         player1Ocean.printBoardString();
 
-        // CREATING SUM OF ALL SHIPS
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
         Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
         int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
-        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships);
+        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships); // // to comment
         player1.setHealth(sumOfPlayer1Ships);
+
+        // NEXT PLAYER
+        helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
 
         // -------------------------------------------
         System.out.println("--------------------");
-        // PLAYER 2 OCEAN
+        // // PRINTING PLAYER 2 OCEAN BEFORE PLACING
         Ocean player2Ocean = player2.getPlayerOcean();
-        System.out.println("player2 ocean before placing ships: ");
+        System.out.println("player2 ocean before placing ships: "); 
         player2Ocean.printBoardString();
 
-        // // PLACING SHIPS
+        // // PLACING SHIPS AND PRINTING BOARD AFTER
         placePlayerShipOnBoardAndAddToListOfShips(player2);
         System.out.println("player2 ocean after: ");
         player2Ocean.printBoardString();
 
-        // // CREATING SUM OF ALL SHIPS
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
         Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
         int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
-        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships);
+        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
         player2.setHealth(sumOfPlayer2Ships);
-        System.out.println("heaathy = " + player1.getHealth());
-        System.out.println("heaathy = " + player2.getHealth());
+
+
         
         // System.out.println("--------------------");
         // // TURNS
-        // int healthPlayer1 = player1.getHealth();
-        // int healthPlayer2 = player2.getHealth();
-        
+        helpers.pressAnyKeyToContinue();
 
         while (this.gameProceed) {
             if (player1.getHealth() != 0 && player2.getHealth() != 0) {
-                // helpers.clearScreen();
-                System.out.println("Player 1 health = " + player1.getHealth());
-                System.out.println("Player 2 health = " + player2.getHealth());
+                helpers.clearScreen();
+
                 playerTurn(player1, player2);
+
+                helpers.pressAnyKeyToContinue();
+                helpers.clearScreen();
+
                 playerTurn(player2, player1);
             } else {
                 if (isPlayerOneWinner(sumOfPlayer1Ships, sumOfPlayer2Ships)) {
-                    System.out.println("Bravo PLAYER ONE = " + player1.getName() + "! Very good job!");
-                    this.gameProceed = false;
+                    congratsToWinner(player1);
+                    terminateGame();;
                 } else {
-                    System.out.println("Bravo PLAYER TWO = " + player2.getName() + "! Very good job!");
-                    this.gameProceed = false;
+                    congratsToWinner(player2);
+                    terminateGame();
                 }
             }
+            
         }
     }
 
@@ -204,6 +210,23 @@ public class Game {
     }
 
     private void playerTurn(Player attacker, Player opponent) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        helpers.clearScreen();
+
+
+        // WHOS TURN
+        System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
+
+        // SHOW OCEANS + MY HEALTH:
+        showHealth(attacker);
+        System.out.println("My ocean: ");
+        attacker.getPlayerOcean().printBoardString();
+
+        System.out.println("My opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
+
         // INPUT COORDINATES
         System.out.println("Please enter coordinate you want to attack: ");
         String coordinatesToConvert = getStringCoordinate();
@@ -213,11 +236,16 @@ public class Game {
 
         // int x = 1; // or 1
         // int y = 1; // or 1
+
         attacker.attackSquare(x, y, opponent.getPlayerOcean());
+
+        helpers.clearScreen();
+        helpers.emptyLinesThree();
         System.out.println("Opponent ocean: ");
+
         opponent.getPlayerOcean().printBoardString();
         boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
-        System.out.println(checkIfHit); // to delete
+        // System.out.println(checkIfHit); // to delete
         if (checkIfHit) {
             System.out.println("Good job. You have hit >>>> " + opponent.getName() + " <<<< ship.");
             opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
@@ -227,15 +255,8 @@ public class Game {
             opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
         }
 
-        System.out.println("My ocean: ");
-        attacker.getPlayerOcean().printBoardString();
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("Ocean of my opponent ocean: ");
-        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
-
+        helpers.pressAnyKeyToContinue();
+        helpers.emptyLinesThree();
     }
 
     private boolean isOpponentsSquareHitted(int x, int y, Player playerToCheck) {
@@ -250,6 +271,28 @@ public class Game {
         playerToSetName.setPlayerName(nameOfPlayer);
 
         return nameOfPlayer;
+    }
+
+    private void settingPlayersName() {
+        helpers.emptyLinesThree();
+        System.out.println("What is the player ONE name: ");
+        getPlayerNameFromInput(player1);
+
+        helpers.emptyLinesThree();
+
+        System.out.println("What is the player TWO name: ");
+        getPlayerNameFromInput(player2);
+        helpers.emptyLinesThree();
+        helpers.pressAnyKeyToContinue();
+    }
+
+    private void congratsToWinner(Player winner) {
+        System.out.println("Bravo PLAYER = " + winner.getName() + "! Very good job!");
+    }
+
+    private void showHealth(Player playerToShowHealth) {
+        System.out.println();
+        System.out.println(">>>> " + playerToShowHealth.getName() + " <<<< and You have " + playerToShowHealth.getHealth() + " health.");
     }
 
     private boolean getInputWithIsVertical() {

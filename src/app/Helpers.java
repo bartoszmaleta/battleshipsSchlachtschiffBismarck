@@ -1,7 +1,10 @@
 package app;
 
+import java.util.Scanner;
+
 public class Helpers {
-    public static void clearScreen() {
+    Scanner scanner = new Scanner(System.in);
+    public void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -70,5 +73,16 @@ public class Helpers {
             isVertical = true;
         }
         return isVertical;
+    }
+
+    public void pressAnyKeyToContinue() {
+        System.out.println("Press any key to continue");
+        scanner.nextLine();
+    }
+
+    public void emptyLinesThree() {
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 }
