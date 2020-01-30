@@ -28,7 +28,7 @@ public class Game {
     private void gamePvP() {
         System.out.println("I am in gamePVP");
         List<Ship> shipsPlayer1 = new ArrayList<>();
-        Ship carrier = new Ship(5, "C", 0, 0, true);
+        Ship carrier = new Ship(5, "C", 1, 1, true);
         Ship battleship = new Ship(4, "B", 3, 2, false);
 
         // create boards
