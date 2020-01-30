@@ -38,26 +38,40 @@ public class Game {
         // GETTING NAME FOR PLAYERS FROM INPUTS
         System.out.println("What is the player ONE name = ");
         String nameOfPlayer1 = getPlayerNameFromInput(player1);
+        System.out.println("");
         System.out.println("What is the player TWO name = ");
         String nameOfPlayer2 = getPlayerNameFromInput(player2);
 
         // ROUND PVP GAME
         while(this.gameProceed) {
+            // PLAYER 1 OCEAN
+            Ocean player1Ocean = player1.getPlayerOcean();
+            player1Ocean.printBoardString();
+            player1Ocean.placeShip(carrier);
+            System.out.println("player1 ocean: ");
+            player1Ocean.printBoardString();
 
-            playerTurn(player1, player2);
-            
-            String oneSquareOfPlayerOneOcean = player2.getPlayerOcean().getOneSquareFromGivenCoordinatesAsInt(3, 4);            
-            System.out.println(oneSquareOfPlayerOneOcean);
+            // PLAYER 2 OCEAN
+            Ocean player2Ocean = player2.getPlayerOcean();
+            player2Ocean.placeShip(battleship);
+            System.out.println("player2 ocean: ");
+            player2Ocean.printBoardString();
 
-            player2.getPlayerOcean().printBoardString();
+            player2.attackSquare(0, 0, player1Ocean);
+            System.out.println("player1 Ocean after hit");
+            player1Ocean.printBoardString();
 
-            playerTurn(player2, player1);
+            if (player1Ocean.getLocationFromCoordinatesAsInts(0, 0).getLook() == "O") {
+                System.out.println("Square is hit");
+            }
 
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            player1.getPlayerOcean().printBoardString();
+            if (isOpponentsSquareHitted(0, 0, player1)) {
+                System.out.println("Square is hit from boolean");
+            }
+
+            break;
+
+
 
         }
     }
@@ -81,7 +95,7 @@ public class Game {
     }
 
     private boolean isOpponentsSquareHitted(int x, int y, Player playerToCheck) {
-        if (playerToCheck.getPlayerOcean().getOneSquareFromGivenCoordinatesAsInt(x, y) == "X") {
+        if (playerToCheck.getPlayerOcean().getOneSquareFromGivenCoordinatesAsInt(x, y) == "O") {
             return true;
         }
         return false;

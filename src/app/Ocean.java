@@ -35,7 +35,7 @@ public class Ocean {
     }
 
     // PLACING SHIP ON OCEAN
-    public void placeShip(Ship ship, boolean isVertical) {
+    public void placeShip(Ship ship) {
         String message = "Not enough space. Recalculate.";
         int x = ship.getInitialPosX();
         int y = ship.getInitialPosY();
@@ -46,13 +46,9 @@ public class Ocean {
         // if (checkIfBarrier(ship)) {
         //     return;
         // }
-        if (isVertical) {
+        if (ship.getIsVertical()) {
             if (y + ship.size <= 10) {
                 for (int i = 0; i < ship.getSize(); i++) {
-                    // if (ocean[y + i][x].isOccupied) {
-                    //     System.out.println("This square is occupied");
-                    //     return;
-                    // }
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
                     // CREATING BARRIER

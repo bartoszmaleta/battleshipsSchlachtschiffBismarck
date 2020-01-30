@@ -16,6 +16,7 @@ public class Ship {
         this.shipLook = shipLook;
         this.initialPosX = initialPosX;
         this.initialPosY = initialPosY;
+        this.isVertical = isVertical;  
         fillShipSquares();
 //        fillBarrier(this.initialPosX, this.initialPosY, this.isVertical);
     }
@@ -42,6 +43,10 @@ public class Ship {
             shipSquares[i] = new Square();
             shipSquares[i].look = shipLook;
         }
+    }
+
+    public boolean getIsVertical() {
+        return isVertical;
     }
 
 //    public void fillBarrier(int initialPosX, int initialPosY, boolean isVertical) {
