@@ -66,8 +66,10 @@ public class Game {
             if (isOpponentsSquareHitted(0, 0, player1)) {
                 System.out.println("Square is hit from boolean");
             }
-            // System.out.println( getIntWithValidation());
-            // System.out.println("123");
+
+            
+            System.out.println(getIntWithValidation());
+            System.out.println("123");
 
             break;
 
@@ -79,17 +81,19 @@ public class Game {
     }
 
     private void playerTurn(Player attacker, Player opponent) {
-        // TODO: ask for coordinate to attack
-
+        // INPUT COORDINATES
+        // String xToConvert = getLetterCoordinate();
+        // int x = helpers.convertCooridnateXToInt(xToConvert);
+        // int y = getIntWithValidation();
         
 
-        int x = 3;
-        int y = 4;
+        int x = 0;  // or 1
+        int y = 0;  // or 1
         attacker.attackSquare(x, y, opponent.getPlayerOcean());
         boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
-        System.out.println(checkIfHit);
+        System.out.println(checkIfHit); // to delete
         if (checkIfHit) {
-            System.out.println("Good job. You have hit player2 ship.");
+            System.out.println("Good job. You have hit " + opponent.getName() +  " ship.");
         } else {
             System.out.println("You missed");
         }
@@ -121,10 +125,24 @@ public class Game {
                 return x;
             } else {
                 System.out.println("Not int!");
+                System.out.println("Enter int");
                 return -1;
             }
         }
         return -1;
+    }
+
+    private String getLetterCoordinate() {
+        while (scanner.hasNext()) {
+            if (scanner.hasNext()) {
+                String letterFromCoordinate = scanner.nextLine();
+                return letterFromCoordinate;
+            } else {
+                System.out.println("Error! Not a letter");
+                return "Enter a letter";
+            }
+        }
+        return "";
     }
 
     private void playGame() {
