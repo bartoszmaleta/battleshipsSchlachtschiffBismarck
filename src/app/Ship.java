@@ -15,7 +15,7 @@ public class Ship {
         this.shipLook = shipLook;
         this.initialPosX = initialPosX;
         this.initialPosY = initialPosY;
-        this.isVertical = isVertical;
+        this.isVertical = isVertical;  
         fillShipSquares();
     }
 
