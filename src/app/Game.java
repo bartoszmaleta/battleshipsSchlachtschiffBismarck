@@ -12,14 +12,16 @@ public class Game {
     Player player2;
     boolean gameProceed = true;
     Scanner scanner = new Scanner(System.in);
-    Ocean oceanToPlayForPlayer1;
-    Ocean oceanToPlayForPlayer2;
+    // Ocean oceanToPlayForPlayer1;
+    // Ocean oceanToPlayForPlayer2;
+    List<Ship> player1Ships = new ArrayList<>();
+    List<Ship> player2Ships = new ArrayList<>();
 
     public Game() {
         player1 = new Player();
         player2 = new Player();
-        oceanToPlayForPlayer1 = new Ocean();
-        oceanToPlayForPlayer2 = new Ocean();
+        // oceanToPlayForPlayer1 = new Ocean();
+        // oceanToPlayForPlayer2 = new Ocean();
         playGame();
     }
 
@@ -29,14 +31,6 @@ public class Game {
 
     private void gamePvP() {
         System.out.println("I am in gamePVP");
-        List<Ship> player1Ships = new ArrayList<>();
-        Ship carrier = new Ship(5, "C", 1, 1, true);
-        Ship battleship = new Ship(4, "B", 2, 1, true);
-        Ship cruiser = new Ship(3, "c", 3, 1, true);
-        Ship submarine = new Ship(3, "S", 4, 1, true);
-        Ship destroyer = new Ship(2, "D", 5, 1, true);
-
-        // create boards
 
         // GETTING NAME FOR PLAYERS FROM INPUTS
         System.out.println("What is the player ONE name = ");
@@ -51,50 +45,38 @@ public class Game {
             Ocean player1Ocean = player1.getPlayerOcean();
             System.out.println("player1 ocean before placing ships: ");
             player1Ocean.printBoardString();
-            
-            player1Ocean.placeShip(carrier);
-            player1Ocean.placeShip(battleship);
-            player1Ocean.placeShip(cruiser);
-            player1Ocean.placeShip(submarine);
-            player1Ocean.placeShip(destroyer);
 
-            player1Ships.add(carrier);
-            player1Ships.add(battleship);
-            player1Ships.add(cruiser);
-            player1Ships.add(submarine);
-            player1Ships.add(destroyer);
-
+            // PLACING SHIPS
+            placePlayerShipOnBoardAndAddToListOfShips(player1);
             System.out.println("player1 ocean: ");
             player1Ocean.printBoardString();
 
-            // PLAYER 2 OCEAN
-            Ocean player2Ocean = player2.getPlayerOcean();
-            player2Ocean.placeShip(battleship);
-            System.out.println("player2 ocean: ");
-            player2Ocean.printBoardString();
-
-            // player2.attackSquare(1, 1, player1Ocean);
-            // System.out.println("player1 Ocean after hit");
-            // player1Ocean.printBoardString();
-
-            // if (player1Ocean.getLocationFromCoordinatesAsInts(0, 0).getLook() == "O") {
-            //     System.out.println("Square is hit");
-            // }
-
-            // if (isOpponentsSquareHitted(0, 0, player1)) {
-            //     System.out.println("Square is hit from boolean");
-            // }
-
-            playerTurn(player1, player2);
-            // player2.getPlayerOceanToShowOtherPlayer().printBoardString();
-
-            // playerTurn(player2, player1);
-            // player1.getPlayerOceanToShowOtherPlayer().printBoardString();
-
+            // CREATING SUM OF ALL SHIPS
             Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
             int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
             System.out.println(sumOfPlayer1Ships);
-            
+
+            // -------------------------------------------
+            // PLAYER 2 OCEAN
+            Ocean player2Ocean = player2.getPlayerOcean();
+            System.out.println("player2 ocean before placing ships: ");
+            player2Ocean.printBoardString();
+
+            // PLACING SHIPS
+            placePlayerShipOnBoardAndAddToListOfShips(player2);
+            System.out.println("player2 ocean after: ");
+            player2Ocean.printBoardString();
+
+            // CREATING SUM OF ALL SHIPS
+            Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
+            int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
+            System.out.println(sumOfPlayer2Ships);
+
+
+            System.out.println("--------------------");
+            // TURNS
+            // playerTurn(player1, player2);
+
             System.out.println(getIntWithValidation());
             System.out.println("123");
 
@@ -107,26 +89,56 @@ public class Game {
         System.out.println("I am in gamePVC");
     }
 
+    public void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
+        // inputs from user about fields
+
+        Ship carrier = new Ship(5, "C", 1, 1, true);
+        Ship battleship = new Ship(4, "B", 2, 8, false);
+        Ship cruiser = new Ship(3, "c", 3, 1, true);
+        Ship submarine = new Ship(3, "S", 8, 10, false);
+        Ship destroyer = new Ship(2, "D", 10, 1, true);
+
+        playerToPlaceShips.getPlayerOcean().placeShip(carrier);
+        playerToPlaceShips.getPlayerOcean().placeShip(battleship);
+        playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
+        playerToPlaceShips.getPlayerOcean().placeShip(submarine);
+        playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
+
+        if (playerToPlaceShips == player1) {
+            player1Ships.add(carrier);
+            player1Ships.add(battleship);
+            player1Ships.add(cruiser);
+            player1Ships.add(submarine);
+            player1Ships.add(destroyer);
+        } else {
+            player2Ships.add(carrier);
+            player2Ships.add(battleship);
+            player2Ships.add(cruiser);
+            player2Ships.add(submarine);
+            player2Ships.add(destroyer);
+        }
+
+    }
+
     private void playerTurn(Player attacker, Player opponent) {
         // INPUT COORDINATES
         // String coordinatesToConvert = getStringCoordinate();
         // int x = helpers.convertCooridnateXToInt(coordinatesToConvert);
         // int y = helpers.convertInputCoordinateYToInt(coordinatesToConvert);
-        
 
-        int x = 1;  // or 1
-        int y = 1;  // or 1
+        int x = 1; // or 1
+        int y = 1; // or 1
         attacker.attackSquare(x, y, opponent.getPlayerOcean());
         boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
         System.out.println(checkIfHit); // to delete
         if (checkIfHit) {
-            System.out.println("Good job. You have hit " + opponent.getName() +  " ship.");
+            System.out.println("Good job. You have hit " + opponent.getName() + " ship.");
             opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
         } else {
             System.out.println("You missed");
             opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
         }
-        
+
         System.out.println("My ocean: ");
         attacker.getPlayerOcean().printBoardString();
 
@@ -185,11 +197,11 @@ public class Game {
 
     public Map<String, Integer> createMapOfShips(Player playerWithShips, List<Ship> ships) {
         // for (Ship ship : ships) {
-            // player.getMapOfShips().put(, value)
+        // player.getMapOfShips().put(, value)
         // }
 
         // for (Ship ship : ship) {
-        //     playerWithShips.getMapOfShips().put(playerWithShips.)
+        // playerWithShips.getMapOfShips().put(playerWithShips.)
         // }
 
         playerWithShips.getMapOfShips().put(ships.get(0).getLook(), ships.get(0).getSize());

@@ -9,7 +9,7 @@ public class Player {
     private Ocean playerOcean;
     private Ocean playerOceanToShowOtherPlayer;
     private boolean hasLost;
-    private Map<String, Integer> mapOfShips; 
+    private Map<String, Integer> mapOfShips;
 
     public Player() {
         this.playerOcean = new Ocean();

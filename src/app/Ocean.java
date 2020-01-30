@@ -41,7 +41,7 @@ public class Ocean {
             return;
         }
         if (ship.getIsVertical()) {
-            if (y + ship.size <= 10) {
+            if (y + ship.size <= 11) {
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
@@ -50,7 +50,7 @@ public class Ocean {
                 System.out.println(message);
             }
         } else {
-            if (x + ship.size <= 10) {
+            if (x + ship.size <= 11) {
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y][x + i] = ship.shipSquares[i];
                     ocean[y][x + i].setIsShip();
@@ -93,14 +93,14 @@ public class Ocean {
         int x = ship.getInitialPosX();
         int y = ship.getInitialPosY();
         if (ship.getIsVertical()) {
-            for (int i = y - 1; i <= ship.getSize() + 1; i++) {
+            for (int i = y - 1; i <= y + ship.getSize(); i++) {
                 for (int j = x - 1; j <= x + 1; j++) {
                     ocean[i][j].setIsOccupied();
                 }
             }
         } else {
             for (int i = y - 1; i <= y + 1; i++) {
-                for (int j = x - 1; j <= x + ship.getSize() + 1; j++) {
+                for (int j = x - 1; j <= x + ship.getSize(); j++) {
                     ocean[i][j].setIsOccupied();
                 }
             }
