@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-
 public class Game {
     Helpers helpers = new Helpers(); // has method clearScreen()
     Player player1;
@@ -13,7 +12,6 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     Ocean oceanToPlayForPlayer1;
     Ocean oceanToPlayForPlayer2;
-
 
     public Game() {
         player1 = new Player();
@@ -31,10 +29,10 @@ public class Game {
         System.out.println("I am in gamePVP");
         List<Ship> shipsPlayer1 = new ArrayList<>();
         Ship carrier = new Ship(5, "C", 0, 0, true);
-        Ship battleship = new Ship(4, "B",3,2, false);
+        Ship battleship = new Ship(4, "B", 3, 2, false);
 
         // create boards
-        
+
         // GETTING NAME FOR PLAYERS FROM INPUTS
         System.out.println("What is the player ONE name = ");
         String nameOfPlayer1 = getPlayerNameFromInput(player1);
@@ -43,7 +41,7 @@ public class Game {
         String nameOfPlayer2 = getPlayerNameFromInput(player2);
 
         // ROUND PVP GAME
-        while(this.gameProceed) {
+        while (this.gameProceed) {
             // PLAYER 1 OCEAN
             Ocean player1Ocean = player1.getPlayerOcean();
             player1Ocean.printBoardString();
@@ -68,10 +66,10 @@ public class Game {
             if (isOpponentsSquareHitted(0, 0, player1)) {
                 System.out.println("Square is hit from boolean");
             }
+            // System.out.println( getIntWithValidation());
+            // System.out.println("123");
 
             break;
-
-
 
         }
     }
@@ -82,6 +80,9 @@ public class Game {
 
     private void playerTurn(Player attacker, Player opponent) {
         // TODO: ask for coordinate to attack
+
+        
+
         int x = 3;
         int y = 4;
         attacker.attackSquare(x, y, opponent.getPlayerOcean());
@@ -112,7 +113,19 @@ public class Game {
         this.gameProceed = false;
     }
 
+    private int getIntWithValidation() {
 
+        while (scanner.hasNext()) {
+            if (scanner.hasNextInt()) {
+                int x = scanner.nextInt();
+                return x;
+            } else {
+                System.out.println("Not int!");
+                return -1;
+            }
+        }
+        return -1;
+    }
 
     private void playGame() {
         boolean isRunning = true;
