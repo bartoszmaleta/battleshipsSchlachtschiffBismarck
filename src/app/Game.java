@@ -57,28 +57,28 @@ public class Game {
             System.out.println(sumOfPlayer1Ships);
 
             // -------------------------------------------
+            System.out.println("--------------------");
             // PLAYER 2 OCEAN
             Ocean player2Ocean = player2.getPlayerOcean();
             System.out.println("player2 ocean before placing ships: ");
             player2Ocean.printBoardString();
 
-            // PLACING SHIPS
+            // // PLACING SHIPS
             placePlayerShipOnBoardAndAddToListOfShips(player2);
             System.out.println("player2 ocean after: ");
             player2Ocean.printBoardString();
 
-            // CREATING SUM OF ALL SHIPS
-            Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
-            int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
-            System.out.println(sumOfPlayer2Ships);
+            // // CREATING SUM OF ALL SHIPS
+            // Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
+            // int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
+            // System.out.println(sumOfPlayer2Ships);
 
+            // System.out.println("--------------------");
+            // // TURNS
+            // // playerTurn(player1, player2);
 
-            System.out.println("--------------------");
-            // TURNS
-            // playerTurn(player1, player2);
-
-            System.out.println(getIntWithValidation());
-            System.out.println("123");
+            // System.out.println(getIntWithValidation());
+            // System.out.println("123");
 
             break;
 
@@ -89,14 +89,67 @@ public class Game {
         System.out.println("I am in gamePVC");
     }
 
-    public void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
-        // inputs from user about fields
+    private void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
+        // CARRIER        
+        System.out.println("Please enter if ship Carrier with 5 squares is gonna be vertical or not (y/n): ");
+        boolean answerIfVerticalCarrier = getInputWithIsVertical();
+        
+        System.out.println("Please enter coordinate: ");
+        String coordinatesToConvertCarrier = getStringCoordinate();
+        int xCarrier = helpers.convertCooridnateXToInt(coordinatesToConvertCarrier) + 1;
+        int yCarrier = helpers.convertInputCoordinateYToInt(coordinatesToConvertCarrier);
 
-        Ship carrier = new Ship(5, "C", 1, 1, true);
-        Ship battleship = new Ship(4, "B", 2, 8, false);
-        Ship cruiser = new Ship(3, "c", 3, 1, true);
-        Ship submarine = new Ship(3, "S", 8, 10, false);
-        Ship destroyer = new Ship(2, "D", 10, 1, true);
+        // BATTLESHIP
+        System.out.println("Please enter if ship Battleship with 4 squares is gonna be vertical or not (y/n): ");
+        boolean answerIfVerticalBattleship = getInputWithIsVertical();
+        
+        System.out.println("Please enter coordinate: ");
+        String coordinatesToConvertBattleship = getStringCoordinate();
+        int xBattleship = helpers.convertCooridnateXToInt(coordinatesToConvertBattleship) + 1;
+        int yBattleship = helpers.convertInputCoordinateYToInt(coordinatesToConvertBattleship);
+
+        // CRUISER
+        System.out.println("Please enter if ship Cruiser with 3 squares is gonna be vertical or not (y/n): ");
+        boolean answerIfVerticalCruiser = getInputWithIsVertical();
+        
+        System.out.println("Please enter coordinate: ");
+        String coordinatesToConvertCruiser = getStringCoordinate();
+
+        int xCruiser = helpers.convertCooridnateXToInt(coordinatesToConvertCruiser) + 1;
+        int yCruiser = helpers.convertInputCoordinateYToInt(coordinatesToConvertCruiser);
+
+        // SUBMARINE
+        System.out.println("Please enter if ship Submarine with 3 squares is gonna be vertical or not (y/n): ");
+        boolean answerIfVerticalSubmarine = getInputWithIsVertical();
+        
+        System.out.println("Please enter coordinate: ");
+        String coordinatesToConvertSubmarine = getStringCoordinate();
+
+        int xSubmarine = helpers.convertCooridnateXToInt(coordinatesToConvertSubmarine) + 1;
+        int ySubmarine = helpers.convertInputCoordinateYToInt(coordinatesToConvertSubmarine);
+
+        // DESTROYER
+        System.out.println("Please enter if ship Destroyer with 2 squares is gonna be vertical or not (y/n): ");
+        boolean answerIfVerticalDestroyer = getInputWithIsVertical();
+        
+        System.out.println("Please enter coordinate: ");
+        String coordinatesToConvertDestroyer = getStringCoordinate();
+
+        int xDestroyer = helpers.convertCooridnateXToInt(coordinatesToConvertDestroyer) + 1;
+        int yDestroyer = helpers.convertInputCoordinateYToInt(coordinatesToConvertDestroyer);
+
+        Ship carrier = new Ship(5, "C", xCarrier, yCarrier, answerIfVerticalCarrier);
+        Ship battleship = new Ship(4, "B", xBattleship, yBattleship, answerIfVerticalBattleship);
+        Ship cruiser = new Ship(3, "c", xCruiser, yCruiser, answerIfVerticalCruiser);
+        Ship submarine = new Ship(3, "S", xSubmarine, ySubmarine, answerIfVerticalSubmarine);
+        Ship destroyer = new Ship(2, "D", xDestroyer, yDestroyer, answerIfVerticalDestroyer);
+        // ----------------------------------------------------------------------
+
+        // Ship carrier = new Ship(5, "C", x, y, true);
+        // Ship battleship = new Ship(4, "B", 2, 8, false);
+        // Ship cruiser = new Ship(3, "c", 3, 1, true);
+        // Ship submarine = new Ship(3, "S", 8, 10, false);
+        // Ship destroyer = new Ship(2, "D", 10, 1, true);
 
         playerToPlaceShips.getPlayerOcean().placeShip(carrier);
         playerToPlaceShips.getPlayerOcean().placeShip(battleship);
@@ -161,6 +214,12 @@ public class Game {
         playerToSetName.setPlayerName(nameOfPlayer);
 
         return nameOfPlayer;
+    }
+
+    private boolean getInputWithIsVertical() {
+        String askIfIsVertical = scanner.nextLine();
+        boolean ifVertical = helpers.convertStringToBoolean(askIfIsVertical);
+        return ifVertical;
     }
 
     private void terminateGame() {

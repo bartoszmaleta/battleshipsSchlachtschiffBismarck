@@ -52,6 +52,23 @@ public class Helpers {
     }
 
     // public int convertInputCoordinateToX(String inputCoordinates) {
-    //     int x = Integer.
+    // int x = Integer.
     // }
+
+    public boolean convertStringToBoolean(String yesOrNo) {
+        boolean isVertical = true;
+        yesOrNo.toLowerCase();
+        switch (yesOrNo) {
+        case "y":
+            isVertical = true;
+            break;
+        case "n":
+            isVertical = false;
+            break;
+        default:
+            System.out.println("You did not choose horizontal or vertical. Default is Vertical");
+            isVertical = true;
+        }
+        return isVertical;
+    }
 }
