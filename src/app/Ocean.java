@@ -185,6 +185,8 @@ public class Ocean {
         return ocean[y][x];
     }
 
+    
+
     // PRINTING BOARD
     public void printBoardString() {
         int counter = 1;
