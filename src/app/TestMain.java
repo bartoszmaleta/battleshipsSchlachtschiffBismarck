@@ -9,9 +9,9 @@ public class TestMain {
 
         Ocean ocean = new Ocean();
         List<Ship> ships = new ArrayList<>();
-        Ship carrier = new Ship(5, "C", 0, 0, true);
-        Ship battleship = new Ship(4, "B",3,2, false);
-//        Ship cruiser = new Ship(3, "c", 2,4, false);
+        Ship carrier = new Ship(5, "C", 3, 2, true);
+        Ship battleship = new Ship(4, "B",1,1, false);
+        Ship cruiser = new Ship(3, "c", 8,4, false);
 //        Ship submarine = new Ship(3, "S", 5, 7, true);
 //        Ship destroyer = new Ship(2, "D", 7, 8, true);
         ships.add(carrier);
@@ -21,9 +21,29 @@ public class TestMain {
 //        ships.add(destroyer);
         for (Ship ship : ships) {
             //zapytanie
-            ocean.placeShip(ship, ship.isVertical);
+            ocean.placeShip(ship);
         }
         ocean.printBoardString();
-        System.out.println(ocean.getOcean()[0][6].getLook());
+
+//        System.out.println(ocean.getOcean()[2][3].getIsOccupied());
+//        System.out.println(ocean.getOcean()[3][3].getIsOccupied());
+//        System.out.println(ocean.getOcean()[4][3].getIsOccupied());
+//        System.out.println(ocean.getOcean()[5][3].getIsOccupied());
+//        System.out.println(ocean.getOcean()[6][3].getIsOccupied());
+//
+//        System.out.println(ocean.getOcean()[2][2].getIsOccupied());
+//        System.out.println(ocean.getOcean()[3][2].getIsOccupied());
+//        System.out.println(ocean.getOcean()[4][2].getIsOccupied());
+//        System.out.println(ocean.getOcean()[5][2].getIsOccupied());
+//        System.out.println(ocean.getOcean()[6][2].getIsOccupied());
+//
+//        System.out.println(ocean.getOcean()[2][4].getIsOccupied());
+//        System.out.println(ocean.getOcean()[3][4].getIsOccupied());
+//        System.out.println(ocean.getOcean()[4][4].getIsOccupied());
+//        System.out.println(ocean.getOcean()[5][4].getIsOccupied());
+//        System.out.println(ocean.getOcean()[6][4].getIsOccupied());
+
+
+//        System.out.println(ocean.getOcean()[2][3].getIsShip());
     }
 }
