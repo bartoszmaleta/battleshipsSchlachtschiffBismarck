@@ -62,6 +62,18 @@ public class Ocean {
         }
         placeBarrier(ship);
     }
+    public void attackSquare(int x, int y) {
+        // PLAYER MISSES
+        if (!ocean[y][x].isShip) {
+            ocean[y][x].setMissLook();
+            System.out.println("You missed");
+        // PLAYER HITS
+        } else {
+            ocean[y][x].setIsHit();
+            ocean[y][x].setHitLook();
+            System.out.println("You hit a ship");
+        }
+    }
 
 //    public boolean checkIfSquaresHaveShip(Ship ship, int x, int y) {
 //        String message = "Ship in a way.";

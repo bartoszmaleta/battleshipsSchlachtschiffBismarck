@@ -14,36 +14,15 @@ public class TestMain {
         Ship cruiser = new Ship(3, "c", 8,4, false);
 //        Ship submarine = new Ship(3, "S", 5, 7, true);
 //        Ship destroyer = new Ship(2, "D", 7, 8, true);
+    
         ships.add(carrier);
         ships.add(battleship);
 //        ships.add(cruiser);
-//        ships.add(submarine);
+    //    ships.add(submarine);
 //        ships.add(destroyer);
+      
         for (Ship ship : ships) {
             //zapytanie
             ocean.placeShip(ship);
-        }
-        ocean.printBoardString();
-
-//        System.out.println(ocean.getOcean()[2][3].getIsOccupied());
-//        System.out.println(ocean.getOcean()[3][3].getIsOccupied());
-//        System.out.println(ocean.getOcean()[4][3].getIsOccupied());
-//        System.out.println(ocean.getOcean()[5][3].getIsOccupied());
-//        System.out.println(ocean.getOcean()[6][3].getIsOccupied());
-//
-//        System.out.println(ocean.getOcean()[2][2].getIsOccupied());
-//        System.out.println(ocean.getOcean()[3][2].getIsOccupied());
-//        System.out.println(ocean.getOcean()[4][2].getIsOccupied());
-//        System.out.println(ocean.getOcean()[5][2].getIsOccupied());
-//        System.out.println(ocean.getOcean()[6][2].getIsOccupied());
-//
-//        System.out.println(ocean.getOcean()[2][4].getIsOccupied());
-//        System.out.println(ocean.getOcean()[3][4].getIsOccupied());
-//        System.out.println(ocean.getOcean()[4][4].getIsOccupied());
-//        System.out.println(ocean.getOcean()[5][4].getIsOccupied());
-//        System.out.println(ocean.getOcean()[6][4].getIsOccupied());
-
-
-//        System.out.println(ocean.getOcean()[2][3].getIsShip());
     }
 }
