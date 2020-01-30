@@ -10,22 +10,24 @@ public class TestMain {
         Ocean ocean = new Ocean();
         List<Ship> ships = new ArrayList<>();
 
-        Ship carrier = new Ship(5, "C", 3, 2, true);
-        Ship battleship = new Ship(4, "B", 1, 1, false);
-        Ship cruiser = new Ship(3, "c", 8, 4, false);
-        // Ship submarine = new Ship(3, "S", 5, 7, true);
+//        Ship carrier = new Ship(5, "C", 3, 2, true);
+//        Ship battleship = new Ship(4, "B", 1, 1, false);
+//        Ship cruiser = new Ship(3, "c", 8, 4, false);
+         Ship submarine = new Ship(3, "S", 8, 10, false);
         // Ship destroyer = new Ship(2, "D", 7, 8, true);
 
-        ships.add(carrier);
-        ships.add(battleship);
+//        ships.add(carrier);
+//        ships.add(battleship);
         // ships.add(cruiser);
-        // ships.add(submarine);
+         ships.add(submarine);
         // ships.add(destroyer);
 
         for (Ship ship : ships) {
-
             // zapytanie
             ocean.placeShip(ship);
         }
+        ocean.printBoardString();
+
+        System.out.println(ocean.getOcean()[11][11].getIsOccupied());
     }
 }

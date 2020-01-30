@@ -41,7 +41,7 @@ public class Ocean {
             return;
         }
         if (ship.getIsVertical()) {
-            if (y + ship.size <= 10) {
+            if (y + ship.size <= 11) {
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
@@ -50,7 +50,7 @@ public class Ocean {
                 System.out.println(message);
             }
         } else {
-            if (x + ship.size <= 10) {
+            if (x + ship.size <= 11) {
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y][x + i] = ship.shipSquares[i];
                     ocean[y][x + i].setIsShip();
@@ -93,19 +93,37 @@ public class Ocean {
         int x = ship.getInitialPosX();
         int y = ship.getInitialPosY();
         if (ship.getIsVertical()) {
-            for (int i = y - 1; i <= ship.getSize() + 1; i++) {
+            for (int i = y - 1; i <= y + ship.getSize(); i++) {
                 for (int j = x - 1; j <= x + 1; j++) {
                     ocean[i][j].setIsOccupied();
                 }
             }
         } else {
             for (int i = y - 1; i <= y + 1; i++) {
-                for (int j = x - 1; j <= x + ship.getSize() + 1; j++) {
+                for (int j = x - 1; j <= x + ship.getSize(); j++) {
                     ocean[i][j].setIsOccupied();
                 }
             }
         }
     }
+
+//    public void placeBarrier(Ship ship) {
+//        int x = ship.getInitialPosX();
+//        int y = ship.getInitialPosY();
+//        if (ship.getIsVertical()) {
+//            for (int i = y - 1; i <= ship.getSize() + 1; i++) {
+//                for (int j = x - 1; j <= x + 1; j++) {
+//                    ocean[i][j].setIsOccupied();
+//                }
+//            }
+//        } else {
+//            for (int i = y - 1; i <= y + 1; i++) {
+//                for (int j = x - 1; j <= x + ship.getSize() + 1; j++) {
+//                    ocean[i][j].setIsOccupied();
+//                }
+//            }
+//        }
+//    }
 
     public boolean checkIfBarrier(Ship ship) {
         int x = ship.getInitialPosX();
@@ -126,59 +144,6 @@ public class Ocean {
             }
         }
         return false;
-    }
-
-//    public void move() {
-//        System.out.println("Choose square");
-//        Scanner userInput = new Scanner(System.in);
-//        String coords = userInput.nextLine();
-//        Square square = getLocationFromCoordinatesInputtedAsString(coords);
-//        hit(square);
-//    }
-//
-//    public void hit(Square square) {
-//        square.setIsHit();
-//    }
-
-    // CONVERTING INPUT TO COORDINATES
-    Square getLocationFromCoordinatesInputtedAsString(String coordinates) {
-        int x = 0, y;
-        y = Integer.parseInt(coordinates.substring(1));
-        switch (coordinates.substring(0, 1)) {
-            case "A":
-                x = 0;
-                break;
-            case "B":
-                x = 1;
-                break;
-            case "C":
-                x = 2;
-                break;
-            case "D":
-                x = 3;
-                break;
-            case "E":
-                x = 4;
-                break;
-            case "F":
-                x = 5;
-                break;
-            case "G":
-                x = 6;
-                break;
-            case "H":
-                x = 7;
-                break;
-            case "I":
-                x = 8;
-                break;
-            case "J":
-                x = 9;
-                break;
-            default:
-                System.out.println("Wrong input");
-        }
-        return ocean[y - 1][x];
     }
 
     Square getLocationFromCoordinatesAsInts(int x, int y) {
