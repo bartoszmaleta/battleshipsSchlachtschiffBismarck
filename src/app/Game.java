@@ -369,15 +369,16 @@ public class Game {
 
     private void playGame() {
         boolean isRunning = true;
+        Menu menu = new Menu();
+        Scanner scanner = new Scanner(System.in);
+        helpers.displayWelcomeScreen();
 
         while (isRunning) {
-            // WELCOME SCREEN
-            Menu menu = new Menu();
-            Scanner scanner = new Scanner(System.in);
 
             menu.showMenu();
 
             int choosedOption = scanner.nextInt();
+
             switch (choosedOption) {
             case 1:
                 gamePvP();

@@ -85,4 +85,14 @@ public class Helpers {
         System.out.println();
         System.out.println();
     }
+
+    public void displayWelcomeScreen() {
+        System.out.println("Welcome to BATTLESHIP GAME");
+        System.out.println("Produced by: ");
+        System.out.println("Bartosz Maleta");
+        System.out.println("Szymon Niemiec");
+        System.out.println("Przemysław Buchacz");
+        emptyLinesThree();
+        pressAnyKeyToContinue();
+    }
 }
