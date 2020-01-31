@@ -11,7 +11,7 @@ import java.util.HashMap;
 // - Graphics                       NICE TO HAVE
 // - Difficulty                     SHOULD
 // - Statistics                     NICE TO HAVE
-// - List<Ship> in Player class     SHOULD
+// - List<Ship> in Player class     DONE
 
 public class Game {
     Helpers helpers = new Helpers(); // has method clearScreen()
@@ -21,6 +21,8 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     List<Ship> player1Ships = new ArrayList<>();
     List<Ship> player2Ships = new ArrayList<>();
+    PlayerAi ai;
+    List<Ship> aiShips = new ArrayList<>();
 
     public Game() {
         player1 = new Player();
@@ -35,8 +37,8 @@ public class Game {
         printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        settingHealthOfPlayer1();
-        
+        settingHealthOfPlayer(player1);
+
         // NEXT PLAYER
         helpers.pressAnyKeyToContinue();
         helpers.clearScreen();
@@ -45,9 +47,7 @@ public class Game {
         printAndPlaceOceansBeforeAndAfterPlacingShips(player2);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        // TODO: should be one method with parameter
-        // TODO: need to create field in Player class with ArrayList of Ships!!!
-        settingHealthOfPlayer2();
+        settingHealthOfPlayer(player2);
 
         // -------------------------------------------
         helpers.pressAnyKeyToContinue();
@@ -75,13 +75,55 @@ public class Game {
     }
 
     private void gamePvC() {
-        System.out.println("I am in gamePVC");
+        ai = new PlayerAi();
+
+        // SETTING NAME FOR PLAYERS FROM INPUTS
+        settingPlayerName();
+
+        printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
+
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
+        settingHealthOfPlayer(player1);
+
+        // NEXT PLAYER
+        helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
+        helpers.oneDashLine();
+        // -------------------------------------------
+        // AI - SETTING NAME
+        ai.setPlayerName("AI");
+
+        // AI - PRINT AND PLACING SHIPS
+        // TODO: PLACING SHIPS
+
+        // AI - SETTING HEALTH
+        settingHealthOfAi();
+
+        while (this.gameProceed) {
+            if (player1.getHealth() != 0 && ai.getHealth() != 0) {
+                helpers.clearScreen();
+
+                playerTurnWithAi(player1, ai);
+
+                helpers.pressAnyKeyToContinue();
+                helpers.clearScreen();
+
+                aiTurn(ai, player1);
+            } else {
+                if (isPlayerOneWinner(player1.getHealth(), ai.getHealth())) {
+                    congratsToWinner(player1);
+                    terminateGame();
+                } else {
+                    congratsToWinner(ai);
+                    terminateGame();
+                }
+            }
+        }
     }
 
     private void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
-        // TODO: TO FIX THIS METHOD ===> have to create a field in Player class:
-        //                               ArrayList<Ship> shipsOfPlayer
-        
+        // TODO: FIX THIS METHOD ===>
+
         // // CARRIER
         // System.out.println("Please enter if ship Carrier with 5 squares is gonna be
         // vertical or not (y/n): ");
@@ -155,31 +197,27 @@ public class Game {
         // answerIfVerticalDestroyer);
         // ----------------------------------------------------------------------
 
+        // COMMENT IF INPUT DATA NEEDED
+        // INITIALIZE AND DECLARE SHIPS
         Ship carrier = new Ship(5, "C", 1, 1, true);
         Ship battleship = new Ship(4, "B", 3, 1, true);
         Ship cruiser = new Ship(3, "c", 5, 1, true);
         Ship submarine = new Ship(3, "S", 2, 10, false);
         Ship destroyer = new Ship(2, "D", 7, 7, false);
 
+        // PLACE SHIP
         playerToPlaceShips.getPlayerOcean().placeShip(carrier);
         playerToPlaceShips.getPlayerOcean().placeShip(battleship);
         playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
         playerToPlaceShips.getPlayerOcean().placeShip(submarine);
         playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
 
-        if (playerToPlaceShips == player1) {
-            player1Ships.add(carrier);
-            player1Ships.add(battleship);
-            player1Ships.add(cruiser);
-            player1Ships.add(submarine);
-            player1Ships.add(destroyer);
-        } else {
-            player2Ships.add(carrier);
-            player2Ships.add(battleship);
-            player2Ships.add(cruiser);
-            player2Ships.add(submarine);
-            player2Ships.add(destroyer);
-        }
+        // ADD SHIPS TO ARRAYLIST
+        playerToPlaceShips.getPlayerShipsArray().add(carrier);
+        playerToPlaceShips.getPlayerShipsArray().add(battleship);
+        playerToPlaceShips.getPlayerShipsArray().add(cruiser);
+        playerToPlaceShips.getPlayerShipsArray().add(submarine);
+        playerToPlaceShips.getPlayerShipsArray().add(destroyer);
 
     }
 
@@ -209,8 +247,123 @@ public class Game {
 
         // int x = 1; // or 1
         // int y = 1; // or 1
+        if (attacker.getName().equals("AI")) {
+            // not sure if it works, because method is overriden!
+            attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        } else {
+            attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        }
 
-        attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        helpers.clearScreen();
+        helpers.emptyLinesThree();
+        System.out.println("Opponent ocean: ");
+
+        opponent.getPlayerOcean().printBoardString();
+        boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
+        // System.out.println(checkIfHit); // to delete
+        if (checkIfHit) {
+            System.out.println("Good job. You have hit >>>> " + opponent.getName() + " <<<< ship.");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
+            opponent.subtractHealth();
+        } else {
+            System.out.println("You missed");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
+        }
+
+        helpers.pressAnyKeyToContinue();
+        helpers.emptyLinesThree();
+    }
+
+    // PLAYER TURN ====> IN PVAI GAME
+    private void playerTurnWithAi(Player attacker, PlayerAi opponent) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        helpers.clearScreen();
+
+        // WHOS TURN
+        System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
+
+        // SHOW OCEANS + MY HEALTH:
+        showHealth(attacker);
+        System.out.println("My ocean: ");
+        attacker.getPlayerOcean().printBoardString();
+
+        System.out.println("My opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
+
+        // INPUT COORDINATES
+        System.out.println("Please enter coordinate you want to attack: ");
+        String coordinatesToConvert = getStringCoordinate();
+        int x = helpers.convertCooridnateXToInt(coordinatesToConvert) + 1; // why i have to add 1 ???
+        int y = helpers.convertInputCoordinateYToInt(coordinatesToConvert); // why i dont have to add 1 ???
+        System.out.println("x = " + x + ", y = " + y);
+
+        // int x = 1; // or 1
+        // int y = 1; // or 1
+        if (attacker.getName() == "AI") {
+            // not sure if it works, because method is overriden!
+            attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        } else {
+            attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        }
+
+        helpers.clearScreen();
+        helpers.emptyLinesThree();
+        System.out.println("Opponent ocean: ");
+
+        opponent.getPlayerOcean().printBoardString();
+        boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
+        // System.out.println(checkIfHit); // to delete
+        if (checkIfHit) {
+            System.out.println("Good job. You have hit >>>> " + opponent.getName() + " <<<< ship.");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
+            opponent.subtractHealth();
+        } else {
+            System.out.println("You missed");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
+        }
+
+        helpers.pressAnyKeyToContinue();
+        helpers.emptyLinesThree();
+    }
+
+    // AI TURN ===> IN PVAI GAME
+    private void aiTurn(PlayerAi attacker, Player opponent) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        helpers.clearScreen();
+
+        // WHOS TURN
+        System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
+
+        // SHOW OCEANS + MY HEALTH:
+        showHealth(attacker);
+        System.out.println("My ocean: ");
+        attacker.getPlayerOcean().printBoardString();
+
+        System.out.println("My opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
+
+        // INPUT COORDINATES
+        System.out.println("Please enter coordinate you want to attack: ");
+        String coordinatesToConvert = getStringCoordinate();
+        int x = helpers.convertCooridnateXToInt(coordinatesToConvert) + 1; // why i have to add 1 ???
+        int y = helpers.convertInputCoordinateYToInt(coordinatesToConvert); // why i dont have to add 1 ???
+        System.out.println("x = " + x + ", y = " + y);
+
+        // int x = 1; // or 1
+        // int y = 1; // or 1
+
+        // if (attacker.getName().equals("AI")) {
+        // // not sure if it works, because method is overriden!
+        // attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        // } else {
+        // attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        // }
+
+        attacker.attackPlayerSquare(opponent.getPlayerOcean());
 
         helpers.clearScreen();
         helpers.emptyLinesThree();
@@ -246,20 +399,20 @@ public class Game {
         return nameOfPlayer;
     }
 
-    public void settingHealthOfPlayer1() {
+    public void settingHealthOfPlayer(Player playerToSetHealth) {
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
-        int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
-        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships); // // to comment
-        player1.setHealth(sumOfPlayer1Ships);
+        Map<String, Integer> mapOfPlayerShips = createMapOfShips(playerToSetHealth, playerToSetHealth.getPlayerShipsArray());
+        int sumOfPlayerShips = sumOfAllShips(mapOfPlayerShips, playerToSetHealth);
+        // System.out.println("Remaining sum of health of player " + playerToSetHealth.getName() + " ships = " + sumOfPlayerShips); // // to comment
+        playerToSetHealth.setHealth(sumOfPlayerShips);
     }
 
-    public void settingHealthOfPlayer2() {
+    public void settingHealthOfAi() {
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
-        int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
-        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
-        player2.setHealth(sumOfPlayer2Ships);
+        Map<String, Integer> mapOfAiShips = createMapOfShips(ai, aiShips);
+        int sumOfAiShips = sumOfAllShips(mapOfAiShips, ai);
+        System.out.println("Remaining sum of health of ai ships = " + sumOfAiShips); // to comment
+        ai.setHealth(sumOfAiShips);
     }
 
     public void printAndPlaceOceansBeforeAndAfterPlacingShips(Player playerToShowOceans) {
@@ -285,6 +438,18 @@ public class Game {
         helpers.emptyLinesThree();
         helpers.pressAnyKeyToContinue();
         helpers.clearScreen();
+    }
+
+    private void settingPlayerName() {
+        helpers.emptyLinesThree();
+
+        System.out.println("What is the player ONE name: ");
+        getPlayerNameFromInput(player1);
+
+        helpers.emptyLinesThree();
+        helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
+
     }
 
     private void congratsToWinner(Player winner) {

@@ -41,7 +41,7 @@ public class Ocean {
             return;
         }
         if (ship.getIsVertical()) {
-            if (y + ship.size <= 11) {
+            if (y + ship.size <= 11) { // 10 or 11????
                 for (int i = 0; i < ship.getSize(); i++) {
                     ocean[y + i][x] = ship.shipSquares[i];
                     ocean[y + i][x].setIsShip();
