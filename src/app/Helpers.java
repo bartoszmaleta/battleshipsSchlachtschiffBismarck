@@ -87,6 +87,7 @@ public class Helpers {
     }
 
     public void displayWelcomeScreen() {
+        emptyLinesThree();
         System.out.println("Welcome to BATTLESHIP GAME");
         System.out.println("Produced by: ");
         System.out.println("Bartosz Maleta");
@@ -94,5 +95,10 @@ public class Helpers {
         System.out.println("Przemysław Buchacz");
         emptyLinesThree();
         pressAnyKeyToContinue();
+        clearScreen();
+    }
+
+    public void oneDashLine() {
+        System.out.println("--------------------");
     }
 }

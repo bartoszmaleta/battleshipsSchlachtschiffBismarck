@@ -7,10 +7,11 @@ import java.util.Map;
 import java.util.HashMap;
 
 // TODO: 
-    // - PvAI                      WIP
-    // - Graphics                  WIP
-    // - Difficulty                ???
-    // - Statistics                ???
+// - PvAI                           WIP
+// - Graphics                       NICE TO HAVE
+// - Difficulty                     SHOULD
+// - Statistics                     NICE TO HAVE
+// - List<Ship> in Player class     SHOULD
 
 public class Game {
     Helpers helpers = new Helpers(); // has method clearScreen()
@@ -27,57 +28,28 @@ public class Game {
         playGame();
     }
 
-    public void createTables() {
-
-    }
-
     private void gamePvP() {
         // SETTING NAME FOR PLAYERS FROM INPUTS
         settingPlayersName();
 
-        // ROUND PVP GAME
-        // // PRINTING PLAYER 2 OCEAN BEFORE PLACING
-        Ocean player1Ocean = player1.getPlayerOcean();
-        System.out.println("player1 ocean before placing ships: ");
-        player1Ocean.printBoardString();
-
-        // PRINTING PLAYER 2 OCEAN BEFORE PLACING
-        placePlayerShipOnBoardAndAddToListOfShips(player1);
-        System.out.println("player1 ocean: ");
-        player1Ocean.printBoardString();
+        printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
-        int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
-        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships); // // to comment
-        player1.setHealth(sumOfPlayer1Ships);
-
+        settingHealthOfPlayer1();
+        
         // NEXT PLAYER
         helpers.pressAnyKeyToContinue();
         helpers.clearScreen();
-
+        helpers.oneDashLine();
         // -------------------------------------------
-        System.out.println("--------------------");
-        // // PRINTING PLAYER 2 OCEAN BEFORE PLACING
-        Ocean player2Ocean = player2.getPlayerOcean();
-        System.out.println("player2 ocean before placing ships: "); 
-        player2Ocean.printBoardString();
-
-        // // PLACING SHIPS AND PRINTING BOARD AFTER
-        placePlayerShipOnBoardAndAddToListOfShips(player2);
-        System.out.println("player2 ocean after: ");
-        player2Ocean.printBoardString();
+        printAndPlaceOceansBeforeAndAfterPlacingShips(player2);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
-        int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
-        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
-        player2.setHealth(sumOfPlayer2Ships);
+        // TODO: should be one method with parameter
+        // TODO: need to create field in Player class with ArrayList of Ships!!!
+        settingHealthOfPlayer2();
 
-
-        
-        // System.out.println("--------------------");
-        // // TURNS
+        // -------------------------------------------
         helpers.pressAnyKeyToContinue();
 
         while (this.gameProceed) {
@@ -91,15 +63,14 @@ public class Game {
 
                 playerTurn(player2, player1);
             } else {
-                if (isPlayerOneWinner(sumOfPlayer1Ships, sumOfPlayer2Ships)) {
+                if (isPlayerOneWinner(player1.getHealth(), player2.getHealth())) {
                     congratsToWinner(player1);
-                    terminateGame();;
+                    terminateGame();
                 } else {
                     congratsToWinner(player2);
                     terminateGame();
                 }
             }
-            
         }
     }
 
@@ -108,6 +79,9 @@ public class Game {
     }
 
     private void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
+        // TODO: TO FIX THIS METHOD ===> have to create a field in Player class:
+        //                               ArrayList<Ship> shipsOfPlayer
+        
         // // CARRIER
         // System.out.println("Please enter if ship Carrier with 5 squares is gonna be
         // vertical or not (y/n): ");
@@ -215,7 +189,6 @@ public class Game {
         System.out.println();
         helpers.clearScreen();
 
-
         // WHOS TURN
         System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
 
@@ -273,6 +246,33 @@ public class Game {
         return nameOfPlayer;
     }
 
+    public void settingHealthOfPlayer1() {
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
+        Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
+        int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
+        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships); // // to comment
+        player1.setHealth(sumOfPlayer1Ships);
+    }
+
+    public void settingHealthOfPlayer2() {
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
+        Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
+        int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
+        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
+        player2.setHealth(sumOfPlayer2Ships);
+    }
+
+    public void printAndPlaceOceansBeforeAndAfterPlacingShips(Player playerToShowOceans) {
+        // // PRINTING PLAYER OCEAN BEFORE PLACING
+        System.out.println(">>>> " + playerToShowOceans.getName() + " <<<< ocean before placing ships: ");
+        playerToShowOceans.getPlayerOcean().printBoardString();
+
+        // PRINTING PLAYER 1 OCEAN BEFORE PLACING
+        placePlayerShipOnBoardAndAddToListOfShips(playerToShowOceans);
+        System.out.println(">>>> " + playerToShowOceans.getName() + " <<<< ocean");
+        playerToShowOceans.getPlayerOcean().printBoardString();
+    }
+
     private void settingPlayersName() {
         helpers.emptyLinesThree();
         System.out.println("What is the player ONE name: ");
@@ -284,6 +284,7 @@ public class Game {
         getPlayerNameFromInput(player2);
         helpers.emptyLinesThree();
         helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
     }
 
     private void congratsToWinner(Player winner) {
@@ -292,7 +293,8 @@ public class Game {
 
     private void showHealth(Player playerToShowHealth) {
         System.out.println();
-        System.out.println(">>>> " + playerToShowHealth.getName() + " <<<< and You have " + playerToShowHealth.getHealth() + " health.");
+        System.out.println(">>>> " + playerToShowHealth.getName() + " <<<< and You have "
+                + playerToShowHealth.getHealth() + " health.");
     }
 
     private boolean getInputWithIsVertical() {
@@ -319,6 +321,7 @@ public class Game {
         }
         return -1;
     }
+
     private boolean isPlayerOneWinner(int sumOfPlayer1Ships, int sumOfPlayer2Ships) {
         if (sumOfPlayer2Ships == 0) {
             return true;
@@ -337,17 +340,12 @@ public class Game {
                 return "Enter a letter";
             }
         }
-        return "";
+        return "A1"; // to fix!!
     }
 
     public Map<String, Integer> createMapOfShips(Player playerWithShips, List<Ship> ships) {
-        // for (Ship ship : ships) {
-        // player.getMapOfShips().put(, value)
-        // }
 
-        // for (Ship ship : ship) {
-        // playerWithShips.getMapOfShips().put(playerWithShips.)
-        // }
+        // TODO: CREATE FOR LOOP
 
         playerWithShips.getMapOfShips().put(ships.get(0).getLook(), ships.get(0).getSize());
         playerWithShips.getMapOfShips().put(ships.get(1).getLook(), ships.get(1).getSize());
