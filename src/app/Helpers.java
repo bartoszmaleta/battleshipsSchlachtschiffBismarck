@@ -54,10 +54,6 @@ public class Helpers {
         return y;
     }
 
-    // public int convertInputCoordinateToX(String inputCoordinates) {
-    // int x = Integer.
-    // }
-
     public boolean convertStringToBoolean(String yesOrNo) {
         boolean isVertical = true;
         yesOrNo.toLowerCase();
@@ -88,7 +84,8 @@ public class Helpers {
 
     public void displayWelcomeScreen() {
         emptyLinesThree();
-        System.out.println("Welcome to BATTLESHIP GAME");
+        System.out.println("Welcome to BATTLESHIP" +
+         "GAME");
         System.out.println("Produced by: ");
         System.out.println("Bartosz Maleta");
         System.out.println("Szymon Niemiec");
