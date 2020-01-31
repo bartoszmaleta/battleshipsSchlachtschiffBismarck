@@ -23,6 +23,7 @@ public class Game {
     List<Ship> player2Ships = new ArrayList<>();
     PlayerAi ai;
     List<Ship> aiShips = new ArrayList<>();
+    boolean isShipPlaced = false;
 
     public Game() {
         player1 = new Player();
@@ -125,30 +126,44 @@ public class Game {
         // TODO: FIX THIS METHOD ===>
 
         // CARRIER
-        System.out.println("Please enter if ship Carrier with 5 squares"); 
+        isShipPlaced = false;
+        helpers.clearScreen();
+        playerToPlaceShips.getPlayerOcean().printBoardString();
+
+        System.out.println("Please enter if ship Carrier with 5 squares");
         System.out.println("is gonna be vertical or not (y/n)");
         boolean answerIfVerticalCarrier = getInputWithIsVertical();
 
         System.out.println("Please enter coordinate: ");
         String coordinatesToConvertCarrier = getStringCoordinate();
-        int xCarrier = helpers.convertCooridnateXToInt(coordinatesToConvertCarrier) +
-        1;
-        int yCarrier =
-        helpers.convertInputCoordinateYToInt(coordinatesToConvertCarrier);
+        int xCarrier = helpers.convertCooridnateXToInt(coordinatesToConvertCarrier) + 1;
+        int yCarrier = helpers.convertInputCoordinateYToInt(coordinatesToConvertCarrier);
+        System.out.println("This is " + playerToPlaceShips.getName() + "Ocean");
 
+        Ship carrier = new Ship(5, "C", xCarrier, yCarrier, answerIfVerticalCarrier);
+        playerToPlaceShips.getPlayerOcean().placeShip(carrier);
+        
         // BATTLESHIP
+        helpers.clearScreen();
+        playerToPlaceShips.getPlayerOcean().printBoardString();
+        
         System.out.println("Please enter if ship Battleship with 4 squares ");
         System.out.println("is gonna be vertical or not (y/n)");
         boolean answerIfVerticalBattleship = getInputWithIsVertical();
 
         System.out.println("Please enter coordinate: ");
         String coordinatesToConvertBattleship = getStringCoordinate();
-        int xBattleship =
-        helpers.convertCooridnateXToInt(coordinatesToConvertBattleship) + 1;
-        int yBattleship =
-        helpers.convertInputCoordinateYToInt(coordinatesToConvertBattleship);
+        int xBattleship = helpers.convertCooridnateXToInt(coordinatesToConvertBattleship) + 1;
+        int yBattleship = helpers.convertInputCoordinateYToInt(coordinatesToConvertBattleship);
+        System.out.println("This is " + playerToPlaceShips.getName() + "Ocean");
+
+        Ship battleship = new Ship(4, "B", xBattleship, yBattleship, answerIfVerticalBattleship);
+        playerToPlaceShips.getPlayerOcean().placeShip(battleship);
 
         // CRUISER
+        helpers.clearScreen();
+        playerToPlaceShips.getPlayerOcean().printBoardString();
+        
         System.out.println("Please enter if ship Cruiser with 3 squares ");
         System.out.println("is gonna be vertical or not (y/n)");
         boolean answerIfVerticalCruiser = getInputWithIsVertical();
@@ -156,12 +171,16 @@ public class Game {
         System.out.println("Please enter coordinate: ");
         String coordinatesToConvertCruiser = getStringCoordinate();
 
-        int xCruiser = helpers.convertCooridnateXToInt(coordinatesToConvertCruiser) +
-        1;
-        int yCruiser =
-        helpers.convertInputCoordinateYToInt(coordinatesToConvertCruiser);
+        int xCruiser = helpers.convertCooridnateXToInt(coordinatesToConvertCruiser) + 1;
+        int yCruiser = helpers.convertInputCoordinateYToInt(coordinatesToConvertCruiser);
+
+        Ship cruiser = new Ship(3, "c", xCruiser, yCruiser, answerIfVerticalCruiser);
+        playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
 
         // SUBMARINE
+        helpers.clearScreen();
+        playerToPlaceShips.getPlayerOcean().printBoardString();
+
         System.out.println("Please enter if ship Submarine with 3 squares ");
         System.out.println("is gonna be vertical or not (y/n)");
         boolean answerIfVerticalSubmarine = getInputWithIsVertical();
@@ -169,12 +188,16 @@ public class Game {
         System.out.println("Please enter coordinate: ");
         String coordinatesToConvertSubmarine = getStringCoordinate();
 
-        int xSubmarine =
-        helpers.convertCooridnateXToInt(coordinatesToConvertSubmarine) + 1;
-        int ySubmarine =
-        helpers.convertInputCoordinateYToInt(coordinatesToConvertSubmarine);
+        int xSubmarine = helpers.convertCooridnateXToInt(coordinatesToConvertSubmarine) + 1;
+        int ySubmarine = helpers.convertInputCoordinateYToInt(coordinatesToConvertSubmarine);
+
+        Ship submarine = new Ship(3, "S", xSubmarine, ySubmarine, answerIfVerticalSubmarine);
+        playerToPlaceShips.getPlayerOcean().placeShip(submarine);
 
         // DESTROYER
+        helpers.clearScreen();
+        playerToPlaceShips.getPlayerOcean().printBoardString();
+        
         System.out.println("Please enter if ship Destroyer with 2 squares ");
         System.out.println("is gonna be vertical or not (y/n)");
         boolean answerIfVerticalDestroyer = getInputWithIsVertical();
@@ -182,19 +205,18 @@ public class Game {
         System.out.println("Please enter coordinate: ");
         String coordinatesToConvertDestroyer = getStringCoordinate();
 
-        int xDestroyer =
-        helpers.convertCooridnateXToInt(coordinatesToConvertDestroyer) + 1;
-        int yDestroyer =
-        helpers.convertInputCoordinateYToInt(coordinatesToConvertDestroyer);
+        int xDestroyer = helpers.convertCooridnateXToInt(coordinatesToConvertDestroyer) + 1;
+        int yDestroyer = helpers.convertInputCoordinateYToInt(coordinatesToConvertDestroyer);
 
-        Ship carrier = new Ship(5, "C", xCarrier, yCarrier, answerIfVerticalCarrier);
-        Ship battleship = new Ship(4, "B", xBattleship, yBattleship,
-        answerIfVerticalBattleship);
-        Ship cruiser = new Ship(3, "c", xCruiser, yCruiser, answerIfVerticalCruiser);
-        Ship submarine = new Ship(3, "S", xSubmarine, ySubmarine,
-        answerIfVerticalSubmarine);
-        Ship destroyer = new Ship(2, "D", xDestroyer, yDestroyer,
-        answerIfVerticalDestroyer);
+        Ship destroyer = new Ship(2, "D", xDestroyer, yDestroyer, answerIfVerticalDestroyer);
+        playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
+
+
+        // Ship carrier = new Ship(5, "C", xCarrier, yCarrier, answerIfVerticalCarrier);
+        // Ship battleship = new Ship(4, "B", xBattleship, yBattleship, answerIfVerticalBattleship);
+        // Ship cruiser = new Ship(3, "c", xCruiser, yCruiser, answerIfVerticalCruiser);
+        // Ship submarine = new Ship(3, "S", xSubmarine, ySubmarine, answerIfVerticalSubmarine);
+        // Ship destroyer = new Ship(2, "D", xDestroyer, yDestroyer, answerIfVerticalDestroyer);
         // ----------------------------------------------------------------------
 
         // COMMENT IF INPUT DATA NEEDED
@@ -206,11 +228,11 @@ public class Game {
         // Ship destroyer = new Ship(2, "D", 7, 7, false);
 
         // PLACE SHIP
-        playerToPlaceShips.getPlayerOcean().placeShip(carrier);
-        playerToPlaceShips.getPlayerOcean().placeShip(battleship);
-        playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
-        playerToPlaceShips.getPlayerOcean().placeShip(submarine);
-        playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
+        // playerToPlaceShips.getPlayerOcean().placeShip(carrier);
+        // playerToPlaceShips.getPlayerOcean().placeShip(battleship);
+        // playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
+        // playerToPlaceShips.getPlayerOcean().placeShip(submarine);
+        // playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
 
         // ADD SHIPS TO ARRAYLIST
         playerToPlaceShips.getPlayerShipsArray().add(carrier);
@@ -401,9 +423,12 @@ public class Game {
 
     public void settingHealthOfPlayer(Player playerToSetHealth) {
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayerShips = createMapOfShips(playerToSetHealth, playerToSetHealth.getPlayerShipsArray());
+        Map<String, Integer> mapOfPlayerShips = createMapOfShips(playerToSetHealth,
+                playerToSetHealth.getPlayerShipsArray());
         int sumOfPlayerShips = sumOfAllShips(mapOfPlayerShips, playerToSetHealth);
-        // System.out.println("Remaining sum of health of player " + playerToSetHealth.getName() + " ships = " + sumOfPlayerShips); // // to comment
+        // System.out.println("Remaining sum of health of player " +
+        // playerToSetHealth.getName() + " ships = " + sumOfPlayerShips); // // to
+        // comment
         playerToSetHealth.setHealth(sumOfPlayerShips);
     }
 
