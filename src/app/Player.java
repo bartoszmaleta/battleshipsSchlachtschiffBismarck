@@ -89,4 +89,8 @@ public class Player {
             System.out.println("You hit a ship");
         }
     }
+
+    public void attackPlayerSquare(Ocean opponentOcean) {
+        
+    } 
 }
