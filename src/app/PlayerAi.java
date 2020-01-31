@@ -7,6 +7,7 @@ import app.Square;
 
 public class PlayerAi extends Player {
 
+    @Override
     public void attackPlayerSquare(Ocean opponentOcean) {
         // PLAYER MISSES
         int x = (int) (Math.random() * 10 + 1);
@@ -24,7 +25,7 @@ public class PlayerAi extends Player {
 
     // --------------------------------------------------------------
     // JUST GETTERS AND SETTERS
-    
+
     // public String getAiName() {
     //     return aiName;
     // }

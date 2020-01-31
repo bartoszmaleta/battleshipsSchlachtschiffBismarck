@@ -32,7 +32,7 @@ public class Game {
 
     private void gamePvP() {
         // INITIALIZATION OF PLAYERS
-        
+
         // SETTING NAME FOR PLAYERS FROM INPUTS
         settingPlayersName();
 
@@ -98,8 +98,8 @@ public class Game {
         ai.setPlayerName("AI");
 
         // AI - PRINT AND PLACING SHIPS
+        // TODO: PLACING SHIPS
         
-
         // AI - SETTING HEALTH
         settingHealthOfAi();
 
@@ -107,12 +107,12 @@ public class Game {
             if (player1.getHealth() != 0 && ai.getHealth() != 0) {
                 helpers.clearScreen();
 
-                playerTurn(player1, ai);
+                playerTurnWithAi(player1, ai);
 
                 helpers.pressAnyKeyToContinue();
                 helpers.clearScreen();
 
-                playerTurn(ai, player1);
+                aiTurn(ai, player1);
             } else {
                 if (isPlayerOneWinner(player1.getHealth(), ai.getHealth())) {
                     congratsToWinner(player1);
@@ -257,8 +257,123 @@ public class Game {
 
         // int x = 1; // or 1
         // int y = 1; // or 1
+        if (attacker.getName() == "AI") {
+            // not sure if it works, because method is overriden!
+            attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        } else {
+            attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        }
 
-        attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        helpers.clearScreen();
+        helpers.emptyLinesThree();
+        System.out.println("Opponent ocean: ");
+
+        opponent.getPlayerOcean().printBoardString();
+        boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
+        // System.out.println(checkIfHit); // to delete
+        if (checkIfHit) {
+            System.out.println("Good job. You have hit >>>> " + opponent.getName() + " <<<< ship.");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
+            opponent.subtractHealth();
+        } else {
+            System.out.println("You missed");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
+        }
+
+        helpers.pressAnyKeyToContinue();
+        helpers.emptyLinesThree();
+    }
+
+    // PLAYER TURN ====> IN PVAI GAME
+    private void playerTurnWithAi(Player attacker, PlayerAi opponent) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        helpers.clearScreen();
+
+        // WHOS TURN
+        System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
+
+        // SHOW OCEANS + MY HEALTH:
+        showHealth(attacker);
+        System.out.println("My ocean: ");
+        attacker.getPlayerOcean().printBoardString();
+
+        System.out.println("My opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
+
+        // INPUT COORDINATES
+        System.out.println("Please enter coordinate you want to attack: ");
+        String coordinatesToConvert = getStringCoordinate();
+        int x = helpers.convertCooridnateXToInt(coordinatesToConvert) + 1; // why i have to add 1 ???
+        int y = helpers.convertInputCoordinateYToInt(coordinatesToConvert); // why i dont have to add 1 ???
+        System.out.println("x = " + x + ", y = " + y);
+
+        // int x = 1; // or 1
+        // int y = 1; // or 1
+        if (attacker.getName() == "AI") {
+            // not sure if it works, because method is overriden!
+            attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        } else {
+            attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        }
+
+        helpers.clearScreen();
+        helpers.emptyLinesThree();
+        System.out.println("Opponent ocean: ");
+
+        opponent.getPlayerOcean().printBoardString();
+        boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
+        // System.out.println(checkIfHit); // to delete
+        if (checkIfHit) {
+            System.out.println("Good job. You have hit >>>> " + opponent.getName() + " <<<< ship.");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "O";
+            opponent.subtractHealth();
+        } else {
+            System.out.println("You missed");
+            opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
+        }
+
+        helpers.pressAnyKeyToContinue();
+        helpers.emptyLinesThree();
+    }
+
+    // AI TURN ===> IN PVAI GAME
+    private void aiTurn(PlayerAi attacker, Player opponent) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        helpers.clearScreen();
+
+        // WHOS TURN
+        System.out.println("ROUND OF PLAYER ===> " + attacker.getName());
+
+        // SHOW OCEANS + MY HEALTH:
+        showHealth(attacker);
+        System.out.println("My ocean: ");
+        attacker.getPlayerOcean().printBoardString();
+
+        System.out.println("My opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
+
+        // INPUT COORDINATES
+        System.out.println("Please enter coordinate you want to attack: ");
+        String coordinatesToConvert = getStringCoordinate();
+        int x = helpers.convertCooridnateXToInt(coordinatesToConvert) + 1; // why i have to add 1 ???
+        int y = helpers.convertInputCoordinateYToInt(coordinatesToConvert); // why i dont have to add 1 ???
+        System.out.println("x = " + x + ", y = " + y);
+
+        // int x = 1; // or 1
+        // int y = 1; // or 1
+        
+        // if (attacker.getName() == "AI") {
+            // // not sure if it works, because method is overriden!
+            // attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        // } else {
+            // attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        // }
+
+        attacker.attackPlayerSquare(opponent.getPlayerOcean());
 
         helpers.clearScreen();
         helpers.emptyLinesThree();

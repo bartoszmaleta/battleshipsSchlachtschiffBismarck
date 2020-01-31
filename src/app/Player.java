@@ -81,6 +81,9 @@ public class Player {
         }
     }
 
+    public void attackPlayerSquare(Ocean opponentOcena) {
+        
+    }
     
 
     
