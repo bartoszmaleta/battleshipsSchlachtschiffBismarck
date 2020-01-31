@@ -21,6 +21,8 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     List<Ship> player1Ships = new ArrayList<>();
     List<Ship> player2Ships = new ArrayList<>();
+    PlayerAi ai;
+    List<Ship> aiShips = new ArrayList<>();
 
     public Game() {
         player1 = new Player();
@@ -29,6 +31,8 @@ public class Game {
     }
 
     private void gamePvP() {
+        // INITIALIZATION OF PLAYERS
+        
         // SETTING NAME FOR PLAYERS FROM INPUTS
         settingPlayersName();
 
@@ -75,7 +79,7 @@ public class Game {
     }
 
     private void gamePvC() {
-        System.out.println("I am in gamePVC");
+        ai = new PlayerAi();
 
         // SETTING NAME FOR PLAYERS FROM INPUTS
         settingPlayersName();
@@ -90,10 +94,14 @@ public class Game {
         helpers.clearScreen();
         helpers.oneDashLine();
         // -------------------------------------------
-
         // AI - SETTING NAME
+        ai.setPlayerName("AI");
+
         // AI - PRINT AND PLACING SHIPS
+        
+
         // AI - SETTING HEALTH
+        settingHealthOfAi();
 
         while (this.gameProceed) {
             if (player1.getHealth() != 0 && ai.getHealth() != 0) {
@@ -300,6 +308,14 @@ public class Game {
         int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
         System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
         player2.setHealth(sumOfPlayer2Ships);
+    }
+
+    public void settingHealthOfAi() {
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
+        Map<String, Integer> mapOfAiShips = createMapOfShips(ai, aiShips);
+        int sumOfAiShips = sumOfAllShips(mapOfAiShips, ai);
+        System.out.println("Remaining sum of health of ai ships = " + sumOfAiShips); // to comment
+        ai.setHealth(sumOfAiShips);
     }
 
     public void printAndPlaceOceansBeforeAndAfterPlacingShips(Player playerToShowOceans) {
