@@ -7,12 +7,37 @@ public class Player {
 
     private String playerName;
     private Ocean playerOcean;
+    private Ocean playerOceanToShowOtherPlayer;
     private boolean hasLost;
-    Map<Integer, String> shipsOfPlayer= new HashMap<>();
+    private Map<String, Integer> mapOfShips;
+    private int health;
 
     public Player() {
         this.playerOcean = new Ocean();
+        this.playerOceanToShowOtherPlayer = new Ocean();
         this.hasLost = false;
+        this.mapOfShips = new HashMap<>();
+        this.health = 0;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void subtractHealth() {
+        this.health -= 1;
+    }
+
+    public Map<String, Integer> getMapOfShips() {
+        return mapOfShips;
+    }
+
+    public Ocean getPlayerOceanToShowOtherPlayer() {
+        return playerOceanToShowOtherPlayer;
     }
 
     public String getName() {
@@ -55,5 +80,9 @@ public class Player {
             System.out.println("You hit a ship");
         }
     }
+
+    
+
+    
 
 }
