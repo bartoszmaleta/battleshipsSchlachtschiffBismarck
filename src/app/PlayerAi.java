@@ -23,58 +23,7 @@ public class PlayerAi extends Player {
         }
     }
 
-    // --------------------------------------------------------------
-    // JUST GETTERS AND SETTERS
-
-    // public String getAiName() {
-    //     return aiName;
-    // }
-
-    // public void setAiName(String aiName) {
-    //     this.aiName = aiName;
-    // }
-
-    // public Ocean getAiOcean() {
-    //     return aiOcean;
-    // }
-
-    // public void setAiOcean(Ocean aiOcean) {
-    //     this.aiOcean = aiOcean;
-    // }
-
-    // public Ocean getAiOceanToShowOtherPlayer() {
-    //     return aiOceanToShowOtherPlayer;
-    // }
-
-    // public void setAiOceanToShowOtherPlayer(Ocean aiOceanToShowOtherPlayer) {
-    //     this.aiOceanToShowOtherPlayer = aiOceanToShowOtherPlayer;
-    // }
-
-    // public boolean isHasLost() {
-    //     return hasLost;
-    // }
-
-    // public void setHasLost(boolean hasLost) {
-    //     this.hasLost = hasLost;
-    // }
-
-    // public Map<String, Integer> getMapOfShips() {
-    //     return mapOfShips;
-    // }
-
-    // public void setMapOfShips(Map<String, Integer> mapOfShips) {
-    //     this.mapOfShips = mapOfShips;
-    // }
-
-    // public int getHealth() {
-    //     return health;
-    // }
-
-    // public void setHealth(int health) {
-    //     this.health = health;
-    // }
-
-        // -----------------------------------------------------------
+    // -----------------------------------------------------------
 
     // private boolean checkIfHit(Square[][] board, int x, int y, boolean makingMove) {
         // if (board[y][x].getIsHit()) {
