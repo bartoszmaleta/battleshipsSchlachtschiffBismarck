@@ -82,7 +82,7 @@ public class Game {
         ai = new PlayerAi();
 
         // SETTING NAME FOR PLAYERS FROM INPUTS
-        settingPlayersName();
+        settingPlayerName();
 
         printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
 
@@ -365,7 +365,7 @@ public class Game {
 
         // int x = 1; // or 1
         // int y = 1; // or 1
-        
+
         // if (attacker.getName() == "AI") {
             // // not sure if it works, because method is overriden!
             // attacker.attackPlayerSquare(opponent.getPlayerOcean());
@@ -456,6 +456,18 @@ public class Game {
         helpers.emptyLinesThree();
         helpers.pressAnyKeyToContinue();
         helpers.clearScreen();
+    }
+
+    private void settingPlayerName() {
+        helpers.emptyLinesThree();
+
+        System.out.println("What is the player ONE name: ");
+        getPlayerNameFromInput(player1);
+
+        helpers.emptyLinesThree();
+        helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
+
     }
 
     private void congratsToWinner(Player winner) {
