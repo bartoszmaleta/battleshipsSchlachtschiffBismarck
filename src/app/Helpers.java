@@ -92,7 +92,7 @@ public class Helpers {
         System.out.println("Produced by: ");
         System.out.println("Bartosz Maleta");
         System.out.println("Szymon Niemiec");
-        System.out.println("Przemysław Buchacz");
+        System.out.println("Przemysław Buszek");
         emptyLinesThree();
         pressAnyKeyToContinue();
         clearScreen();

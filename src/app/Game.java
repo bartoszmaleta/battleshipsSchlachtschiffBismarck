@@ -278,9 +278,7 @@ public class Game {
 
         helpers.clearScreen();
         helpers.emptyLinesThree();
-        System.out.println("Opponent ocean: ");
 
-        opponent.getPlayerOcean().printBoardString();
         boolean checkIfHit = isOpponentsSquareHitted(x, y, opponent);
         // System.out.println(checkIfHit); // to delete
         if (checkIfHit) {
@@ -291,6 +289,9 @@ public class Game {
             System.out.println("You missed");
             opponent.getPlayerOceanToShowOtherPlayer().getOcean()[y][x].look = "X";
         }
+
+        System.out.println("Opponent ocean: ");
+        opponent.getPlayerOceanToShowOtherPlayer().printBoardString();
 
         helpers.pressAnyKeyToContinue();
         helpers.emptyLinesThree();
