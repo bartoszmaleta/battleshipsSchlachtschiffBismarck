@@ -2,6 +2,7 @@ package app;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class Player {
 
@@ -11,6 +12,7 @@ public class Player {
     private boolean hasLost;
     private Map<String, Integer> mapOfShips;
     private int health;
+    private ArrayList<Ship> playerShips;
 
     public Player() {
         this.playerOcean = new Ocean();
@@ -18,6 +20,11 @@ public class Player {
         this.hasLost = false;
         this.mapOfShips = new HashMap<>();
         this.health = 0;
+        this.playerShips = new ArrayList<>();
+    }
+
+    public ArrayList<Ship> getPlayerShipsArray() {
+        return playerShips;
     }
 
     public void setHealth(int health) {
@@ -82,7 +89,7 @@ public class Player {
     }
 
     public void attackPlayerSquare(Ocean opponentOcena) {
-        
+
     }
     
 

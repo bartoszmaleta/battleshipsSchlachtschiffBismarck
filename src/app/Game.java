@@ -11,7 +11,7 @@ import java.util.HashMap;
 // - Graphics                       NICE TO HAVE
 // - Difficulty                     SHOULD
 // - Statistics                     NICE TO HAVE
-// - List<Ship> in Player class     SHOULD
+// - List<Ship> in Player class     DONE
 
 public class Game {
     Helpers helpers = new Helpers(); // has method clearScreen()
@@ -31,15 +31,13 @@ public class Game {
     }
 
     private void gamePvP() {
-        // INITIALIZATION OF PLAYERS
-
         // SETTING NAME FOR PLAYERS FROM INPUTS
         settingPlayersName();
 
         printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        settingHealthOfPlayer1();
+        settingHealthOfPlayer(player1);
 
         // NEXT PLAYER
         helpers.pressAnyKeyToContinue();
@@ -49,9 +47,7 @@ public class Game {
         printAndPlaceOceansBeforeAndAfterPlacingShips(player2);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        // TODO: should be one method with parameter
-        // TODO: need to create field in Player class with ArrayList of Ships!!!
-        settingHealthOfPlayer2();
+        settingHealthOfPlayer(player2);
 
         // -------------------------------------------
         helpers.pressAnyKeyToContinue();
@@ -87,7 +83,7 @@ public class Game {
         printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        settingHealthOfPlayer1();
+        settingHealthOfPlayer(player1);
 
         // NEXT PLAYER
         helpers.pressAnyKeyToContinue();
@@ -99,7 +95,7 @@ public class Game {
 
         // AI - PRINT AND PLACING SHIPS
         // TODO: PLACING SHIPS
-        
+
         // AI - SETTING HEALTH
         settingHealthOfAi();
 
@@ -123,12 +119,10 @@ public class Game {
                 }
             }
         }
-
     }
 
     private void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
-        // TODO: TO FIX THIS METHOD ===> have to create a field in Player class:
-        // ArrayList<Ship> shipsOfPlayer
+        // TODO: FIX THIS METHOD ===>
 
         // // CARRIER
         // System.out.println("Please enter if ship Carrier with 5 squares is gonna be
@@ -203,31 +197,27 @@ public class Game {
         // answerIfVerticalDestroyer);
         // ----------------------------------------------------------------------
 
+        // COMMENT IF INPUT DATA NEEDED
+        // INITIALIZE AND DECLARE SHIPS
         Ship carrier = new Ship(5, "C", 1, 1, true);
         Ship battleship = new Ship(4, "B", 3, 1, true);
         Ship cruiser = new Ship(3, "c", 5, 1, true);
         Ship submarine = new Ship(3, "S", 2, 10, false);
         Ship destroyer = new Ship(2, "D", 7, 7, false);
 
+        // PLACE SHIP
         playerToPlaceShips.getPlayerOcean().placeShip(carrier);
         playerToPlaceShips.getPlayerOcean().placeShip(battleship);
         playerToPlaceShips.getPlayerOcean().placeShip(cruiser);
         playerToPlaceShips.getPlayerOcean().placeShip(submarine);
         playerToPlaceShips.getPlayerOcean().placeShip(destroyer);
 
-        if (playerToPlaceShips == player1) {
-            player1Ships.add(carrier);
-            player1Ships.add(battleship);
-            player1Ships.add(cruiser);
-            player1Ships.add(submarine);
-            player1Ships.add(destroyer);
-        } else {
-            player2Ships.add(carrier);
-            player2Ships.add(battleship);
-            player2Ships.add(cruiser);
-            player2Ships.add(submarine);
-            player2Ships.add(destroyer);
-        }
+        // ADD SHIPS TO ARRAYLIST
+        playerToPlaceShips.getPlayerShipsArray().add(carrier);
+        playerToPlaceShips.getPlayerShipsArray().add(battleship);
+        playerToPlaceShips.getPlayerShipsArray().add(cruiser);
+        playerToPlaceShips.getPlayerShipsArray().add(submarine);
+        playerToPlaceShips.getPlayerShipsArray().add(destroyer);
 
     }
 
@@ -257,7 +247,7 @@ public class Game {
 
         // int x = 1; // or 1
         // int y = 1; // or 1
-        if (attacker.getName() == "AI") {
+        if (attacker.getName().equals("AI")) {
             // not sure if it works, because method is overriden!
             attacker.attackPlayerSquare(opponent.getPlayerOcean());
         } else {
@@ -366,11 +356,11 @@ public class Game {
         // int x = 1; // or 1
         // int y = 1; // or 1
 
-        // if (attacker.getName() == "AI") {
-            // // not sure if it works, because method is overriden!
-            // attacker.attackPlayerSquare(opponent.getPlayerOcean());
+        // if (attacker.getName().equals("AI")) {
+        // // not sure if it works, because method is overriden!
+        // attacker.attackPlayerSquare(opponent.getPlayerOcean());
         // } else {
-            // attacker.attackSquare(x, y, opponent.getPlayerOcean());
+        // attacker.attackSquare(x, y, opponent.getPlayerOcean());
         // }
 
         attacker.attackPlayerSquare(opponent.getPlayerOcean());
@@ -409,20 +399,12 @@ public class Game {
         return nameOfPlayer;
     }
 
-    public void settingHealthOfPlayer1() {
+    public void settingHealthOfPlayer(Player playerToSetHealth) {
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer1Ships = createMapOfShips(player1, player1Ships);
-        int sumOfPlayer1Ships = sumOfAllShips(mapOfPlayer1Ships, player1);
-        System.out.println("Remaining sum of health of player 1 ships = " + sumOfPlayer1Ships); // // to comment
-        player1.setHealth(sumOfPlayer1Ships);
-    }
-
-    public void settingHealthOfPlayer2() {
-        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
-        Map<String, Integer> mapOfPlayer2Ships = createMapOfShips(player2, player2Ships);
-        int sumOfPlayer2Ships = sumOfAllShips(mapOfPlayer2Ships, player2);
-        System.out.println("Remaining sum of health of player 2 ships = " + sumOfPlayer2Ships); // to comment
-        player2.setHealth(sumOfPlayer2Ships);
+        Map<String, Integer> mapOfPlayerShips = createMapOfShips(playerToSetHealth, playerToSetHealth.getPlayerShipsArray());
+        int sumOfPlayerShips = sumOfAllShips(mapOfPlayerShips, playerToSetHealth);
+        // System.out.println("Remaining sum of health of player " + playerToSetHealth.getName() + " ships = " + sumOfPlayerShips); // // to comment
+        playerToSetHealth.setHealth(sumOfPlayerShips);
     }
 
     public void settingHealthOfAi() {
