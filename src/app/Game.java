@@ -36,7 +36,7 @@ public class Game {
 
         // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
         settingHealthOfPlayer1();
-        
+
         // NEXT PLAYER
         helpers.pressAnyKeyToContinue();
         helpers.clearScreen();
@@ -76,12 +76,52 @@ public class Game {
 
     private void gamePvC() {
         System.out.println("I am in gamePVC");
+
+        // SETTING NAME FOR PLAYERS FROM INPUTS
+        settingPlayersName();
+
+        printAndPlaceOceansBeforeAndAfterPlacingShips(player1);
+
+        // // CREATING SUM OF ALL SHIPS AND SETTING HEALTH
+        settingHealthOfPlayer1();
+
+        // NEXT PLAYER
+        helpers.pressAnyKeyToContinue();
+        helpers.clearScreen();
+        helpers.oneDashLine();
+        // -------------------------------------------
+
+        // AI - SETTING NAME
+        // AI - PRINT AND PLACING SHIPS
+        // AI - SETTING HEALTH
+
+        while (this.gameProceed) {
+            if (player1.getHealth() != 0 && ai.getHealth() != 0) {
+                helpers.clearScreen();
+
+                playerTurn(player1, ai);
+
+                helpers.pressAnyKeyToContinue();
+                helpers.clearScreen();
+
+                playerTurn(ai, player1);
+            } else {
+                if (isPlayerOneWinner(player1.getHealth(), ai.getHealth())) {
+                    congratsToWinner(player1);
+                    terminateGame();
+                } else {
+                    congratsToWinner(ai);
+                    terminateGame();
+                }
+            }
+        }
+
     }
 
     private void placePlayerShipOnBoardAndAddToListOfShips(Player playerToPlaceShips) {
         // TODO: TO FIX THIS METHOD ===> have to create a field in Player class:
-        //                               ArrayList<Ship> shipsOfPlayer
-        
+        // ArrayList<Ship> shipsOfPlayer
+
         // // CARRIER
         // System.out.println("Please enter if ship Carrier with 5 squares is gonna be
         // vertical or not (y/n): ");
